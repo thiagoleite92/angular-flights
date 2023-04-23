@@ -1,0 +1,18 @@
+<mat-form-field [ngClass]="{ invalid: isInvalid(fieldReference!) }">
+  <mat-label>{{ renderLabel(label, required) }}</mat-label>
+  <input
+    type="{{ type }}"
+    matInput
+    placeholder="{{ placeHolder }}"
+    [ngModel]="fieldReference?.value"
+    (ngModelChange)="onChange($event)"
+  />
+  <mat-hint *ngIf="isInvalid(fieldReference!)">
+    <span *ngIf="fieldReference?.hasError('required') && required"
+      >Campo obrigatório</span
+    >
+    <span *ngIf="fieldReference?.hasError('email')">
+      {{ errorMessage }}
+    </span>
+  </mat-hint>
+</mat-form-field>

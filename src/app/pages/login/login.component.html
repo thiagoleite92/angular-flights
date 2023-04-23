@@ -1,1 +1,24 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="top-lane"></div>
+  <form>
+    <img src="../../../assets/images/logo.jpg" />
+    <app-input
+      label="E-mail"
+      placeHolder="Seu e-mail"
+      type="email"
+      [fieldReference]="getReference('email')"
+      errorMessage="E-mail inválido"
+      [required]="true"
+    ></app-input>
+
+    <app-input
+      label="Senha"
+      placeHolder="Sua senha"
+      type="password"
+      [fieldReference]="getReference('password')"
+      [required]="true"
+    ></app-input>
+    <app-button type="button" text="Logar" (click)="handleLogin()"></app-button>
+  </form>
+  <div class="bottom-lane"></div>
+</div>

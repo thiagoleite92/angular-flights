@@ -10,13 +10,6 @@ const routes: Routes = [
       return m.LoginModule;
     },
   },
-  {
-    path: 'cadastro',
-    loadChildren: async () => {
-      const m = await import('./pages/cadastro/cadastro.module');
-      return m.CadastroModule;
-    },
-  },
 ];
 
 @NgModule({

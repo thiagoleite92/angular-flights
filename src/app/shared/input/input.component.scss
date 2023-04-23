@@ -1,0 +1,14 @@
+.invalid {
+  color: red;
+
+  mat-label {
+    color: red;
+  }
+
+  input {
+    color: red;
+    &::placeholder {
+      color: red;
+    }
+  }
+}
