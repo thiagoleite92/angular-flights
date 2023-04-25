@@ -6,9 +6,10 @@
       label="E-mail"
       placeHolder="Seu e-mail"
       type="email"
-      [fieldReference]="getReference('email')"
+      [fieldReference]="getReference('login')"
       errorMessage="E-mail inválido"
       [required]="true"
+      (btnIsDisabled)="statusBtn($event)"
     ></app-input>
 
     <app-input
@@ -17,8 +18,18 @@
       type="password"
       [fieldReference]="getReference('password')"
       [required]="true"
+      (keyup.enter)="handleLogin()"
+      (btnIsDisabled)="statusBtn($event)"
     ></app-input>
-    <app-button type="button" text="Logar" (click)="handleLogin()"></app-button>
+
+    <app-button
+      type="button"
+      text="Logar"
+      (click)="handleLogin()"
+      [isDisabled]="!btnIsDisabled"
+      [isLoading]="isLoading"
+    >
+    </app-button>
   </form>
   <div class="bottom-lane"></div>
 </div>

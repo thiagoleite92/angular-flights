@@ -1,12 +1,25 @@
 <mat-form-field [ngClass]="{ invalid: isInvalid(fieldReference!) }">
   <mat-label>{{ renderLabel(label, required) }}</mat-label>
   <input
-    type="{{ type }}"
+    [type]="type === 'password' && hide ? 'password' : 'text'"
     matInput
     placeholder="{{ placeHolder }}"
     [ngModel]="fieldReference?.value"
     (ngModelChange)="onChange($event)"
   />
+  <button
+    *ngIf="type === 'password'"
+    type="button"
+    mat-icon-button
+    matSuffix
+    (click)="hide = !hide"
+    [attr.aria-label]="'Hide password'"
+    [attr.aria-pressed]="hide"
+  >
+    <mat-icon class="eye-color">{{
+      hide ? "visibility_off" : "visibility"
+    }}</mat-icon>
+  </button>
   <mat-hint *ngIf="isInvalid(fieldReference!)">
     <span *ngIf="fieldReference?.hasError('required') && required"
       >Campo obrigatório</span

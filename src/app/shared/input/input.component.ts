@@ -1,4 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
 @Component({
@@ -13,12 +21,17 @@ export class InputComponent implements OnInit {
   @Input() public fieldReference?: AbstractControl;
   @Input() public errorMessage?: string;
   @Input() public required: boolean = false;
+  @Output() public btnIsDisabled: EventEmitter<boolean> = new EventEmitter();
+
+  public hide: boolean = true;
 
   ngOnInit(): void {}
 
   onChange(event: any) {
     this.fieldReference?.setValue(event);
     this.fieldReference?.markAsDirty();
+
+    this.btnIsDisabled.emit(this.fieldReference?.invalid);
   }
 
   renderLabel(label: string, required: boolean): string {

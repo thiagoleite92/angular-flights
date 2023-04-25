@@ -8,4 +8,8 @@ import { Component, Input } from '@angular/core';
 export class ButtonComponent {
   @Input() text: string = '';
   @Input() type: string = 'button';
+  @Input() isDisabled?: boolean;
+  @Input() isLoading: boolean = false;
+
+  public hide: boolean = true;
 }

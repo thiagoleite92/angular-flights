@@ -1,7 +1,15 @@
+.eye-color {
+  color: blue;
+}
+
 .invalid {
   color: red;
 
   mat-label {
+    color: red;
+  }
+
+  .eye-color {
     color: red;
   }
 

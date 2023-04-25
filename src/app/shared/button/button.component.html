@@ -1,1 +1,11 @@
-<button mat-raised-button type="{{ type }}" color="primary">{{ text }}</button>
+<div>
+  <button
+    mat-raised-button
+    type="{{ type }}"
+    color="primary"
+    disabled="{{ isDisabled }}"
+  >
+    {{ text }}
+  </button>
+  <mat-spinner *ngIf="isLoading" [diameter]="20"></mat-spinner>
+</div>
