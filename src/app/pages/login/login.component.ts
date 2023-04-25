@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { NotificationService } from '../../service/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private route: Router
   ) {
     this.form = this.fb.group({
       login: [
@@ -45,7 +47,8 @@ export class LoginComponent {
         '/auth/login',
         this.form.value
       );
-      this.authService.setLocalStorage(response);
+      this.authService.setUserAndToken(response);
+      this.route.navigate(['/home']);
     } catch (error: any) {
       const { message } = error.error;
       console.log(error.error);
