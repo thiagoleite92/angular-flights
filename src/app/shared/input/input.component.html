@@ -20,12 +20,26 @@
       hide ? "visibility_off" : "visibility"
     }}</mat-icon>
   </button>
+
   <mat-hint *ngIf="isInvalid(fieldReference!)">
-    <span *ngIf="fieldReference?.hasError('required') && required"
-      >Campo obrigatório</span
-    >
-    <span *ngIf="fieldReference?.hasError('email')">
+    <div *ngIf="fieldReference?.hasError('required')">Campo obrigatório</div>
+
+    <div *ngIf="fieldReference?.hasError('email')">
       {{ errorMessage }}
-    </span>
+    </div>
+
+    <div *ngIf="fieldReference?.hasError('passwordStrong')">
+      Precisa conter ao menos: <br />
+      1 número<br />
+      1 letra maiúscula<br />
+      1 letra minúscula<br />
+      e um caracter especial.
+    </div>
+
+    <div *ngIf="fieldReference?.hasError('passwordMatch')">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="fieldReference?.hasError('minlength')">Numeros minimos</div>
   </mat-hint>
 </mat-form-field>

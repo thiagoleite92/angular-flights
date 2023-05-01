@@ -5,9 +5,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { NotificationService } from '../../service/notification.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -36,22 +36,21 @@ export class LoginComponent {
 
   async handleLogin() {
     if (!this.btnIsDisabled) {
-      console.log('oi');
       return;
     }
+    this.isLoading = true;
+    this.btnIsDisabled = false;
 
     try {
-      this.isLoading = true;
-      this.btnIsDisabled = false;
       const response = await this.authService.login(
         '/auth/login',
         this.form.value
       );
       this.authService.setUserAndToken(response);
-      this.route.navigate(['/home']);
+      this.authService.showMenu.emit(true);
+      this.route.navigate(['/admin']);
     } catch (error: any) {
       const { message } = error.error;
-      console.log(error.error);
       this.notification.message({ message });
       this.form?.setValue({ login: '', password: '' });
       return;

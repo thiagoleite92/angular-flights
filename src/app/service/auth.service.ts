@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { HttpService } from './http.service';
 import { HttpClient } from '@angular/common/http';
 import { LoginResponse } from './types/login-response.type';
@@ -9,7 +9,10 @@ export class AuthService extends HttpService {
     super(_http);
   }
 
+  showMenu: EventEmitter<boolean> = new EventEmitter();
+
   async login(url: string, credentials: any): Promise<LoginResponse> {
+    this.showMenu.emit(true);
     return await this.post(url, credentials);
   }
 
@@ -20,6 +23,11 @@ export class AuthService extends HttpService {
   }
 
   isLoggedIn(): boolean | null {
-    return !!localStorage.getItem('token') || null;
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      this.showMenu.emit(true);
+      return true;
+    } else return null;
   }
 }

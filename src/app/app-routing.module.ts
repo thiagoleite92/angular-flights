@@ -14,10 +14,10 @@ const routes: Routes = [
   },
   {
     canActivate: [AuthGuard],
-    path: 'home',
+    path: 'admin',
     loadChildren: async () => {
-      const m = await import('./pages/home/home.module');
-      return m.HomeModule;
+      const m = await import('./admin/admin.module');
+      return m.AdminModule;
     },
   },
 ];

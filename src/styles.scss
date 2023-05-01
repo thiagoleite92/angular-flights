@@ -1,7 +1,6 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -13,20 +12,27 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $flights-angular-primary: mat.define-palette(mat.$indigo-palette);
-$flights-angular-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$flights-angular-accent: mat.define-palette(
+  mat.$pink-palette,
+  A200,
+  A100,
+  A400
+);
 
 // The warn palette is optional (defaults to red).
 $flights-angular-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$flights-angular-theme: mat.define-light-theme((
-  color: (
-    primary: $flights-angular-primary,
-    accent: $flights-angular-accent,
-    warn: $flights-angular-warn,
+$flights-angular-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $flights-angular-primary,
+      accent: $flights-angular-accent,
+      warn: $flights-angular-warn,
+    ),
   )
-));
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -38,9 +44,14 @@ $flights-angular-theme: mat.define-light-theme((
 
 html,
 body {
-  background-color: $brancoBase;
   height: 100%;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+p {
+  margin: 0;
+}

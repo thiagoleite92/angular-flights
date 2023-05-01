@@ -1,3 +1,13 @@
+::ng-deep mat-form-field {
+  width: 300px;
+}
+
+::ng-deep
+  mat-form-field
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: rgb(206, 206, 210);
+}
+
 .eye-color {
   color: blue;
 }
@@ -18,5 +28,18 @@
     &::placeholder {
       color: red;
     }
+  }
+
+  ::ng-deep .mat-mdc-form-field-hint-wrapper {
+    position: static;
+
+    div {
+      margin-top: 10px;
+      max-width: 240px;
+    }
+  }
+
+  ::ng-deep .mat-mdc-form-field-bottom-align::before {
+    content: none;
   }
 }
