@@ -14,7 +14,7 @@ import { NotificationService } from '../../service/notification.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   public form: FormGroup;
   public btnIsDisabled: boolean = false;
   public isLoading = false;
@@ -34,6 +34,14 @@ export class LoginComponent {
     });
   }
 
+  ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      this.route.navigate(['/admin/usuario']);
+
+      return;
+    }
+  }
+
   async handleLogin() {
     if (!this.btnIsDisabled) {
       return;
@@ -47,8 +55,7 @@ export class LoginComponent {
         this.form.value
       );
       this.authService.setUserAndToken(response);
-      this.authService.showMenu.emit(true);
-      this.route.navigate(['/admin']);
+      this.route.navigate(['/admin/usuario']);
     } catch (error: any) {
       const { message } = error.error;
       this.notification.message({ message });

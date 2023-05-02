@@ -5,6 +5,8 @@ import { HttpService } from './http.service';
 import { NotificationService } from './notification.service';
 import { AuthGuard } from './auth.guard';
 import { LocationService } from './location.service';
+import { RequestInterceptor } from './request-interceptor.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [],
@@ -15,6 +17,12 @@ import { LocationService } from './location.service';
     NotificationService,
     AuthGuard,
     LocationService,
+    RequestInterceptor,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true,
+    },
   ],
 })
 export class ServiceModule {}

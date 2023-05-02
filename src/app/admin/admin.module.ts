@@ -7,6 +7,6 @@ import { ComponentModule } from '../components/component.module';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, AdminRoutingModule, SharedModule],
+  imports: [CommonModule, AdminRoutingModule, SharedModule, ComponentModule],
 })
 export class AdminModule {}

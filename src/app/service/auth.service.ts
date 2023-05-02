@@ -9,25 +9,17 @@ export class AuthService extends HttpService {
     super(_http);
   }
 
-  showMenu: EventEmitter<boolean> = new EventEmitter();
-
   async login(url: string, credentials: any): Promise<LoginResponse> {
-    this.showMenu.emit(true);
     return await this.post(url, credentials);
   }
 
   setUserAndToken(loginResponse: LoginResponse): void {
-    localStorage.setItem('token', JSON.stringify(loginResponse.accessToken));
+    localStorage.setItem('token', loginResponse.accessToken);
     localStorage.setItem('user', JSON.stringify(loginResponse.user));
     return;
   }
 
   isLoggedIn(): boolean | null {
-    const token = localStorage.getItem('token');
-
-    if (token) {
-      this.showMenu.emit(true);
-      return true;
-    } else return null;
+    return !!localStorage.getItem('token');
   }
 }

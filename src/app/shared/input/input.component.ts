@@ -36,8 +36,6 @@ export class InputComponent {
     this.fieldReference?.setValue(event);
     this.fieldReference?.markAsDirty();
 
-    console.log(this.fieldReference?.hasError('required'));
-
     this.btnIsDisabled.emit(this.fieldReference?.invalid);
   }
 

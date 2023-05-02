@@ -13,6 +13,8 @@ import { LocationService } from '../../service/location.service';
 import { LocationResponseType } from '../../service/types/location-response.type';
 import { SelectType } from '../../shared/input/select-type';
 import { UserType } from './types/user-type';
+import { UserService } from './user.service';
+import { NotificationService } from '../../service/notification.service';
 
 @Component({
   selector: 'app-user-form',
@@ -21,6 +23,8 @@ import { UserType } from './types/user-type';
 })
 export class UserFormComponent implements OnInit {
   private userForm: FormGroup;
+  public btnIsDisabled: boolean = false;
+  public isLoading = false;
 
   public locations?: SelectType[] | any;
 
@@ -31,7 +35,9 @@ export class UserFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private userService: UserService,
+    private notificationService: NotificationService
   ) {
     this.userForm = this.fb.group({
       name: [
@@ -57,7 +63,7 @@ export class UserFormComponent implements OnInit {
         [Validators.required, isPasswordAndConfirmPasswordMatch()],
       ],
       actualLocation: ['', [Validators.required]],
-      isAdmin: ['', [Validators.required]],
+      role: ['', [Validators.required]],
     });
   }
 
@@ -80,7 +86,47 @@ export class UserFormComponent implements OnInit {
     return locations as SelectType[];
   }
 
-  viewForm() {
-    console.log(this.userForm?.value);
+  async saveUser() {
+    if (
+      this.userForm?.value?.password !== this.userForm?.value?.confirmPassword
+    ) {
+      this.userForm?.controls['confirmPassword'].setErrors({
+        passwordMatch: 'true',
+      });
+      return;
+    }
+
+    const data = {
+      name: this.userForm?.value['name'],
+      email: this.userForm?.value['email'],
+      password: this.userForm?.value['password'],
+      actualLocation: this.userForm?.value['actualLocation'],
+      role: this.userForm?.value['role'],
+    };
+
+    try {
+      await this.userService.post('/user', data);
+    } catch (error: any) {
+      const { message } = error.error;
+      const { status } = error;
+
+      if (error && status === 409) {
+        this.notificationService.message({ message });
+        this.userForm?.controls['email'].setValue('');
+        this.userForm?.controls['email'].setErrors({ required: 'true' });
+      }
+    } finally {
+    }
+  }
+
+  statusBtn(event: any): boolean {
+    return (this.btnIsDisabled =
+      !event &&
+      !!this.userForm?.value?.name &&
+      !!this.userForm?.value?.email &&
+      !!this.userForm?.value?.password &&
+      !!this.userForm?.value?.confirmPassword &&
+      !!this.userForm?.value?.actualLocation &&
+      !!this.userForm?.value?.role);
   }
 }
