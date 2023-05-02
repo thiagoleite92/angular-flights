@@ -8,13 +8,14 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
+import { SelectType } from './select-type';
 
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
 })
-export class InputComponent implements OnInit {
+export class InputComponent {
   @Input() public label: string = '';
   @Input() public placeHolder: string = '';
   @Input() public type: string = '';
@@ -23,13 +24,19 @@ export class InputComponent implements OnInit {
   @Input() public required: boolean = false;
   @Output() public btnIsDisabled: EventEmitter<boolean> = new EventEmitter();
 
-  public hide: boolean = true;
+  @Input() public isSelect: boolean = false;
+  @Input() public isAsyncSelect: boolean = false;
+  @Input() public isText: boolean = false;
 
-  ngOnInit(): void {}
+  @Input() public options?: any;
+
+  public hide: boolean = true;
 
   onChange(event: any) {
     this.fieldReference?.setValue(event);
     this.fieldReference?.markAsDirty();
+
+    console.log(this.fieldReference?.hasError('required'));
 
     this.btnIsDisabled.emit(this.fieldReference?.invalid);
   }

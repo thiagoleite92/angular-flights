@@ -28,6 +28,10 @@
   padding: 20px 0px;
   display: flex;
   justify-content: space-evenly;
-  gap: 10px;
   flex-wrap: wrap;
+
+  @media (max-width: 376px) {
+    margin: 0px;
+    padding: 0px;
+  }
 }

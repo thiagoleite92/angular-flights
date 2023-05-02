@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SharedModule } from '../shared/shared.module';
-import { UserComponent } from './user/user.component';
+import { ListComponent } from './list/list.component';
+import { UserFormComponent } from './user/user-form.component';
 
 @NgModule({
-  declarations: [UserComponent],
+  declarations: [UserFormComponent, ListComponent],
   imports: [CommonModule, SharedModule],
-  exports: [UserComponent],
 })
 export class ComponentModule {}
