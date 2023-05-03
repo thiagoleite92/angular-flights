@@ -13,6 +13,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { ServiceModule } from './service/service.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +31,7 @@ import { ServiceModule } from './service/service.module';
     MatIconModule,
     MatListModule,
     ServiceModule,
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

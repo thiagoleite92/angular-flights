@@ -22,4 +22,8 @@ export class AuthService extends HttpService {
   isLoggedIn(): boolean | null {
     return !!localStorage.getItem('token');
   }
+
+  logout(): void {
+    localStorage.clear();
+  }
 }

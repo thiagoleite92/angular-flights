@@ -11,7 +11,6 @@ export class UserService extends HttpService {
 
   async saveUser(url: string, data: SaveUser): Promise<any> {
     await this.post(url, data);
-
     return;
   }
 }

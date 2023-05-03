@@ -8,13 +8,16 @@ import {
 import {
   isPasswordAndConfirmPasswordMatch,
   isPasswordStrong,
-} from '../../../utils/passwordUtils';
-import { LocationService } from '../../service/location.service';
-import { LocationResponseType } from '../../service/types/location-response.type';
-import { SelectType } from '../../shared/input/select-type';
-import { UserType } from './types/user-type';
-import { UserService } from './user.service';
-import { NotificationService } from '../../service/notification.service';
+} from '../../../../utils/passwordUtils';
+
+import { Router } from '@angular/router';
+import { LocationService } from '../../../service/location.service';
+import { NotificationService } from '../../../service/notification.service';
+import { LocationResponseType } from '../../../service/types/location-response.type';
+import { SelectType } from '../../../shared/input/select-type';
+import { UserType } from '../types/user-type';
+import { UserService } from '../user.service';
+import { AuthService } from '../../../service/auth.service';
 
 @Component({
   selector: 'app-user-form',
@@ -37,20 +40,22 @@ export class UserFormComponent implements OnInit {
     private fb: FormBuilder,
     private locationService: LocationService,
     private userService: UserService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private authService: AuthService,
+    private route: Router
   ) {
     this.userForm = this.fb.group({
       name: [
-        '',
+        'teste',
         [
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(25),
         ],
       ],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['teste@email.com', [Validators.required, Validators.email]],
       password: [
-        '',
+        'Senha@123',
         [
           Validators.required,
           Validators.minLength(6),
@@ -59,10 +64,10 @@ export class UserFormComponent implements OnInit {
         ],
       ],
       confirmPassword: [
-        '',
+        'Senha@123',
         [Validators.required, isPasswordAndConfirmPasswordMatch()],
       ],
-      actualLocation: ['', [Validators.required]],
+      actualLocation: ['Pernambuco - PE', [Validators.required]],
       role: ['', [Validators.required]],
     });
   }
@@ -79,7 +84,7 @@ export class UserFormComponent implements OnInit {
     const locations = await this.locationService.get().then((response) => {
       return response.map((loc: LocationResponseType) => ({
         label: `${loc.sigla} - ${loc.nome}`,
-        value: loc.nome,
+        value: `${loc.sigla} - ${loc.nome}`,
       }));
     });
 
@@ -106,6 +111,10 @@ export class UserFormComponent implements OnInit {
 
     try {
       await this.userService.post('/user', data);
+      this.notificationService.message({
+        message: 'Usuário criado com sucesso.',
+      });
+      this.route.navigate(['/admin/usuario']);
     } catch (error: any) {
       const { message } = error.error;
       const { status } = error;
@@ -114,8 +123,19 @@ export class UserFormComponent implements OnInit {
         this.notificationService.message({ message });
         this.userForm?.controls['email'].setValue('');
         this.userForm?.controls['email'].setErrors({ required: 'true' });
+        this.btnIsDisabled = false;
+        return;
       }
-    } finally {
+
+      if (error && status === 401) {
+        console.log('oi');
+        this.authService.logout();
+        this.notificationService.message({
+          message: 'Sessão expirada. Faça login novamente.',
+        });
+        this.route.navigate(['/login']);
+        return;
+      }
     }
   }
 
