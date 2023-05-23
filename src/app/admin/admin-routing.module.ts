@@ -6,15 +6,23 @@ import { UserFormComponent } from '../components/user/userform/user-form.compone
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'usuario',
+    redirectTo: 'usuarios',
     pathMatch: 'full',
   },
   {
-    path: 'usuario',
+    path: 'usuarios',
     component: ListComponent,
   },
   {
-    path: 'usuario/registrar',
+    path: 'usuarios/registrar',
+    component: UserFormComponent,
+  },
+  {
+    path: 'rotas',
+    component: ListComponent,
+  },
+  {
+    path: 'rotas/registrar',
     component: UserFormComponent,
   },
 ];

@@ -18,6 +18,7 @@ import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    RouterModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -31,7 +32,6 @@ import { RouterModule } from '@angular/router';
     MatIconModule,
     MatListModule,
     ServiceModule,
-    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

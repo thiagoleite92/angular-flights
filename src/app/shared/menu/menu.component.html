@@ -8,10 +8,15 @@
     [opened]="(isHandset$ | async) === false"
   >
     <mat-toolbar>Menu</mat-toolbar>
+
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+      <a
+        routerLinkActive="selected"
+        *ngFor="let route of routes"
+        mat-list-item
+        [routerLink]="route[0]"
+        >{{ route[1] }}</a
+      >
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -27,7 +32,15 @@
       </button>
       <span>flights-angular</span>
     </mat-toolbar>
-    <h2 class="title">{{ pageTitle }}</h2>
+    <div class="title-container">
+      <h2 class="title">{{ pageTitle }}</h2>
+      <app-button
+        [text]="buttonText"
+        [isDisabled]="false"
+        (click)="navigateTo()"
+      ></app-button>
+    </div>
+
     <main class="main-container">
       <ng-content></ng-content>
     </main>

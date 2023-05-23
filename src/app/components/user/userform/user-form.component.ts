@@ -46,16 +46,16 @@ export class UserFormComponent implements OnInit {
   ) {
     this.userForm = this.fb.group({
       name: [
-        'teste',
+        '',
         [
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(25),
         ],
       ],
-      email: ['teste@email.com', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       password: [
-        'Senha@123',
+        '',
         [
           Validators.required,
           Validators.minLength(6),
@@ -64,10 +64,10 @@ export class UserFormComponent implements OnInit {
         ],
       ],
       confirmPassword: [
-        'Senha@123',
+        '',
         [Validators.required, isPasswordAndConfirmPasswordMatch()],
       ],
-      actualLocation: ['Pernambuco - PE', [Validators.required]],
+      actualLocation: ['', [Validators.required]],
       role: ['', [Validators.required]],
     });
   }
@@ -114,7 +114,7 @@ export class UserFormComponent implements OnInit {
       this.notificationService.message({
         message: 'Usuário criado com sucesso.',
       });
-      this.route.navigate(['/admin/usuario']);
+      this.route.navigate(['/admin/usuarios']);
     } catch (error: any) {
       const { message } = error.error;
       const { status } = error;

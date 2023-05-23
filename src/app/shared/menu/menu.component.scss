@@ -16,8 +16,22 @@
   z-index: 1;
 }
 
-.title {
-  margin: 20px;
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px 0 0;
+
+  .title {
+    margin: 20px;
+  }
+}
+
+.selected {
+  background-color: #3f51b5;
+  ::ng-deep .mdc-list-item__primary-text {
+    color: white !important;
+  }
 }
 
 .main-container {

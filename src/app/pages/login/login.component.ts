@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
-      this.route.navigate(['/admin/usuario']);
+      this.route.navigate(['/admin/usuarios']);
 
       return;
     }
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
         this.form.value
       );
       this.authService.setUserAndToken(response);
-      this.route.navigate(['/admin/usuario']);
+      this.route.navigate(['/admin/usuarios']);
     } catch (error: any) {
       const { message } = error.error;
       this.notification.message({ message });

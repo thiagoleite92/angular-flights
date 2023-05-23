@@ -16,10 +16,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormField } from '@angular/material/form-field';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [InputComponent, ButtonComponent, MenuComponent],
   imports: [
+    RouterModule,
     CommonModule,
     MatInputModule,
     MatButtonModule,
