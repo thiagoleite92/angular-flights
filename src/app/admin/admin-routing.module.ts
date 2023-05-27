@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListComponent } from '../components/list/list.component';
 import { UserFormComponent } from '../components/user/userform/user-form.component';
+import { UserlistComponent } from '../components/user/userlist/userlist.component';
+import { RouterListComponent } from '../components/route/router-list/router-list.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'usuarios',
-    component: ListComponent,
+    component: UserlistComponent,
   },
   {
     path: 'usuarios/registrar',
@@ -19,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: 'rotas',
-    component: ListComponent,
+    component: UserlistComponent,
   },
   {
     path: 'rotas/registrar',

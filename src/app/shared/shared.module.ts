@@ -15,11 +15,19 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatFormField } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
+import { IconComponent } from './icon/icon.component';
+import { ToggleComponent } from './toggle/toggle.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
-  declarations: [InputComponent, ButtonComponent, MenuComponent],
+  declarations: [
+    InputComponent,
+    ButtonComponent,
+    MenuComponent,
+    IconComponent,
+    ToggleComponent,
+  ],
   imports: [
     RouterModule,
     CommonModule,
@@ -35,7 +43,15 @@ import { RouterModule } from '@angular/router';
     MatListModule,
     MatSelectModule,
     MatCheckboxModule,
+    MatIconModule,
+    MatSlideToggleModule,
   ],
-  exports: [InputComponent, ButtonComponent, MenuComponent],
+  exports: [
+    InputComponent,
+    ButtonComponent,
+    MenuComponent,
+    IconComponent,
+    ToggleComponent,
+  ],
 })
 export class SharedModule {}

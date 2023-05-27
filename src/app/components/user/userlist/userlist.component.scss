@@ -1,0 +1,39 @@
+table {
+  width: 96%;
+  border-collapse: collapse;
+
+  thead {
+    background: #3f51b5;
+
+    tr {
+      th {
+        font-weight: 400;
+        color: white;
+        padding: 10px;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid black;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+    td {
+      text-align: center;
+      padding: 10px 0;
+    }
+  }
+  tfoot {
+    background: #3f51b5;
+
+    tr {
+      td {
+        color: #3f51b5;
+        padding: 10px;
+      }
+    }
+  }
+}

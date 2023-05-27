@@ -26,7 +26,7 @@ import { AuthService } from '../../../service/auth.service';
 })
 export class UserFormComponent implements OnInit {
   private userForm: FormGroup;
-  public btnIsDisabled: boolean = false;
+  public btnIsDisabled = false;
   public isLoading = false;
 
   public locations?: SelectType[] | any;
@@ -128,7 +128,6 @@ export class UserFormComponent implements OnInit {
       }
 
       if (error && status === 401) {
-        console.log('oi');
         this.authService.logout();
         this.notificationService.message({
           message: 'Sessão expirada. Faça login novamente.',

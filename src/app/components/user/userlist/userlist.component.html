@@ -1,0 +1,43 @@
+<app-menu>
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let column of columns">
+          {{ column }}
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of data">
+        <td *ngFor="let column of columns">
+          <div *ngIf="column === 'Ações'">
+            <app-icon iconType="delete"></app-icon>
+            <app-icon iconType="edit"></app-icon>
+          </div>
+
+          <div *ngIf="column !== 'Ações'">
+            <span *ngIf="column !== 'Status'">
+              {{ item[column] }}
+            </span>
+            <app-toggle
+              (handleChange)="updateStatus(item['id'], item['Status'])"
+              [checked]="item['Status']"
+              [id]="item['id']"
+              *ngIf="column === 'Status'"
+            >
+            </app-toggle>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <td *ngFor="let column of columns">
+          {{ column }}
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</app-menu>

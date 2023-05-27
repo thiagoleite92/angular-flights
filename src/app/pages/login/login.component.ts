@@ -16,7 +16,7 @@ import { NotificationService } from '../../service/notification.service';
 })
 export class LoginComponent implements OnInit {
   public form: FormGroup;
-  public btnIsDisabled: boolean = false;
+  public btnIsDisabled = false;
   public isLoading = false;
 
   constructor(
