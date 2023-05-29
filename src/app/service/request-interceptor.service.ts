@@ -4,24 +4,41 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, delay, finalize } from 'rxjs';
+import { LoadingService } from '../shared/loader/loader.service';
 
+@Injectable()
 export class RequestInterceptor implements HttpInterceptor {
+  requisicoesEmAndamento = 0;
+
+  constructor(private loadingService: LoadingService) {}
+
   intercept(
-    request: HttpRequest<any>,
+    req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('token');
-
-    if (token) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return next.handle(request);
+    this.requisicoesEmAndamento++;
+    if (this.requisicoesEmAndamento === 1) {
+      // this.loadingService.setLoading(true);
     }
 
-    return next.handle(request);
+    const token = localStorage.getItem('token');
+    let novaReq = req;
+    if (token) {
+      novaReq = req.clone({
+        headers: req.headers.set('Authorization', `Bearer ${token}`),
+      });
+    }
+
+    return next.handle(novaReq).pipe(
+      delay(500), // 2 segundos
+      finalize(() => {
+        this.requisicoesEmAndamento--;
+        if (this.requisicoesEmAndamento === 0) {
+          // this.loadingService.setLoading(false);
+        }
+      })
+    );
   }
 }

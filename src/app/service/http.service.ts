@@ -34,6 +34,15 @@ export class HttpService {
     });
   }
 
+  public delete(url: string, userId: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.mountUrl(`${url}/${userId}`)).subscribe({
+        next: (v) => resolve(v),
+        error: (e) => reject(e),
+      });
+    });
+  }
+
   private mountUrl(endpoint: string): string {
     return `${this.baseURL}${endpoint}`;
   }

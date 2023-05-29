@@ -19,6 +19,9 @@ import { RouterModule } from '@angular/router';
 import { IconComponent } from './icon/icon.component';
 import { ToggleComponent } from './toggle/toggle.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { LoaderComponent } from './loader/loader.component';
+import { ServiceModule } from '../service/service.module';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,9 +30,12 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MenuComponent,
     IconComponent,
     ToggleComponent,
+    LoaderComponent,
+    DialogComponent,
   ],
   imports: [
     RouterModule,
+    ServiceModule,
     CommonModule,
     MatInputModule,
     MatButtonModule,
@@ -52,6 +58,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MenuComponent,
     IconComponent,
     ToggleComponent,
+    LoaderComponent,
+    DialogComponent,
   ],
 })
 export class SharedModule {}

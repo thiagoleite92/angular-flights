@@ -1,14 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { SelectType } from './select-type';
 
 @Component({
   selector: 'app-input',
@@ -16,21 +7,21 @@ import { SelectType } from './select-type';
   styleUrls: ['./input.component.scss'],
 })
 export class InputComponent {
-  @Input() public label: string = '';
-  @Input() public placeHolder: string = '';
-  @Input() public type: string = '';
+  @Input() public label = '';
+  @Input() public placeHolder = '';
+  @Input() public type = '';
   @Input() public fieldReference?: AbstractControl;
   @Input() public errorMessage?: string;
-  @Input() public required: boolean = false;
+  @Input() public required = false;
   @Output() public btnIsDisabled: EventEmitter<boolean> = new EventEmitter();
 
-  @Input() public isSelect: boolean = false;
-  @Input() public isAsyncSelect: boolean = false;
-  @Input() public isText: boolean = false;
+  @Input() public isSelect = false;
+  @Input() public isAsyncSelect = false;
+  @Input() public isText = false;
 
   @Input() public options?: any;
 
-  public hide: boolean = true;
+  public hide = true;
 
   onChange(event: any) {
     this.fieldReference?.setValue(event);

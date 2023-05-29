@@ -1,0 +1,17 @@
+<main class="dialog">
+  <div class="dialog-content">
+    <h5>Essa ação é irreversível. Deseja continuar?</h5>
+    <div class="btn-container">
+      <button text="Não" (click)="click(id)" class="dialog-btn btn-keep">
+        Sim
+      </button>
+      <button
+        text="Não"
+        (click)="handleCloseModal()"
+        class="dialog-btn btn-cancel"
+      >
+        Não
+      </button>
+    </div>
+  </div>
+</main>

@@ -1,3 +1,11 @@
+.waiting {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+
 table {
   width: 96%;
   border-collapse: collapse;
@@ -14,16 +22,27 @@ table {
     }
   }
 
-  tbody {
-    tr {
+  .tbody {
+    .tbody-tr {
       border-bottom: 1px solid black;
       &:last-child {
         border-bottom: none;
       }
-    }
-    td {
-      text-align: center;
-      padding: 10px 0;
+
+      &:nth-child(2n + 1) {
+        background: rgba(63, 81, 181, 0.2);
+      }
+
+      .tbody-td {
+        text-align: center;
+        padding: 10px 0;
+
+        & .container-actions {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+        }
+      }
     }
   }
   tfoot {

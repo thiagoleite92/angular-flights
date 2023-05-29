@@ -14,8 +14,6 @@ export class ToggleComponent {
   }>();
 
   change(id: string, isActive: boolean) {
-    console.log(isActive);
-
     this.handleChange.emit({ id, isActive });
   }
 }

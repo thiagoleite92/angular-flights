@@ -24,4 +24,8 @@ export class UserService extends HttpService {
   async updateUserStatus(userId: string, isActive: boolean) {
     await this.patch(this.userUrl, userId, { isActive });
   }
+
+  async deleteUser(userId: string): Promise<void> {
+    await this.delete(this.userUrl, userId);
+  }
 }

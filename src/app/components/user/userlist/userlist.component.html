@@ -1,4 +1,5 @@
 <app-menu>
+  <div *ngIf="!columns" class="waiting">carregando</div>
   <table>
     <thead>
       <tr>
@@ -8,12 +9,21 @@
       </tr>
     </thead>
 
-    <tbody>
-      <tr *ngFor="let item of data">
-        <td *ngFor="let column of columns">
-          <div *ngIf="column === 'Ações'">
-            <app-icon iconType="delete"></app-icon>
-            <app-icon iconType="edit"></app-icon>
+    <tbody class="tbody">
+      <tr *ngFor="let item of data" class="tbody-tr">
+        <td *ngFor="let column of columns" class="tbody-td">
+          <div *ngIf="column === 'Ações'" class="container-actions">
+            <app-icon
+              iconType="delete"
+              color="warn"
+              (click)="openDeleteModal(item['id'])"
+              [id]="item['id']"
+            ></app-icon>
+            <app-icon
+              iconType="edit"
+              color="primary"
+              (click)="handleEdit(item['id'])"
+            ></app-icon>
           </div>
 
           <div *ngIf="column !== 'Ações'">
@@ -41,3 +51,9 @@
     </tfoot>
   </table>
 </app-menu>
+<app-dialog
+  *ngIf="showDeleteModal"
+  (closeModal)="closeModal($event)"
+  (handleClick)="deleteUser($event)"
+  [id]="userId"
+></app-dialog>
