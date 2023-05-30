@@ -31,10 +31,17 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>flights-angular</span>
+      <app-icon
+        (click)="logout()"
+        iconType="exit_to_app"
+        customClass="white-icon"
+        ><span class="content-text">DESLOGAR</span></app-icon
+      >
     </mat-toolbar>
     <div class="title-container">
       <h2 class="title">{{ pageTitle }}</h2>
       <app-button
+        *ngIf="isAdmin && (pageTitle === 'Usuarios' || pageTitle === 'Rotas')"
         [text]="buttonText"
         [isDisabled]="false"
         (click)="navigateTo()"

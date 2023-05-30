@@ -136,7 +136,7 @@ export class UserFormComponent implements OnInit {
       this.notificationService.message({
         message: `Usuário ${this.isEdit ? 'editado' : 'salvo'} com sucesso.`,
       });
-      this.router.navigate(['/admin/usuarios']);
+      this.router.navigate(['/usuarios']);
     } catch (error: any) {
       const { message } = error.error;
       const { status } = error;
@@ -188,7 +188,7 @@ export class UserFormComponent implements OnInit {
 
       if (!user) {
         this.notificationService.message({ message: 'Usuário não encontrado' });
-        return this.router.navigateByUrl('/admin/usuarios');
+        return this.router.navigateByUrl('/usuarios');
       }
 
       const userInfo = {

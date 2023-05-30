@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { capitalizeFirstLetter } from '../../../utils/stringUtils';
+import { AuthService } from '../../service/auth.service';
 
 interface RoutesMap {
   [key: string]: boolean;
@@ -19,13 +20,13 @@ export class MenuComponent implements OnInit {
   public buttonText: string = '';
   public navigateUrl: string = '';
   public urlActive: string = '';
+  public isAdmin: boolean = false;
 
   public routes = [
-    ['/admin/usuarios', 'Usuários'],
-    ['/admin/rotas', 'Rotas'],
+    ['/usuarios', 'Usuários'],
+    ['/rotas', 'Rotas'],
+    ['/voos', 'Voos'],
   ];
-
-  routesMap: RoutesMap = {};
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -36,20 +37,22 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.setNavigation(this.router.url);
+    this.isAdmin = this.authService.isAdmin();
   }
 
   setNavigation(pathname: string): void {
-    const [, admin, name] = pathname.split('/');
+    const [, name] = pathname.split('/');
     const nameCapitalized = capitalizeFirstLetter(name);
 
     if (pathname.includes('/registrar')) {
       this.pageTitle = nameCapitalized;
-      this.navigateUrl = `/${admin}/${name}`;
+      this.navigateUrl = `/${name}`;
       this.buttonText = 'Voltar';
 
       return;
@@ -57,7 +60,7 @@ export class MenuComponent implements OnInit {
 
     if (pathname.includes('/usuarios/editar')) {
       this.pageTitle = nameCapitalized;
-      (this.buttonText = 'Voltar'), (this.navigateUrl = `/${admin}/${name}`);
+      (this.buttonText = 'Voltar'), (this.navigateUrl = `/${name}`);
 
       return;
     }
@@ -65,7 +68,7 @@ export class MenuComponent implements OnInit {
     if (pathname.includes('/usuarios')) {
       this.pageTitle = nameCapitalized;
       this.buttonText = 'Novo usuário';
-      this.navigateUrl = '/admin/usuarios/registrar';
+      this.navigateUrl = '/usuarios/registrar';
 
       return;
     }
@@ -73,7 +76,7 @@ export class MenuComponent implements OnInit {
     if (pathname.includes('/rotas')) {
       this.pageTitle = nameCapitalized;
       this.buttonText = 'Nova rota';
-      this.navigateUrl = '/admin/rotas/registrar';
+      this.navigateUrl = '/rotas/registrar';
 
       return;
     }
@@ -82,5 +85,9 @@ export class MenuComponent implements OnInit {
   navigateTo(): void {
     this.router.navigateByUrl(this.navigateUrl);
     return;
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }

@@ -8,4 +8,6 @@ import { Component, Input } from '@angular/core';
 export class IconComponent {
   @Input() iconType = '';
   @Input() color = '';
+
+  @Input() customClass = '';
 }

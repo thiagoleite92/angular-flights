@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../../service/notification.service';
 import { AllUsers } from '../types/user-response.type';
+import { AuthService } from '../../../service/auth.service';
 
 @Component({
   selector: 'app-userlist',
@@ -10,6 +11,7 @@ import { AllUsers } from '../types/user-response.type';
   styleUrls: ['./userlist.component.scss'],
 })
 export class UserlistComponent implements OnInit {
+  @Input() public isAdmin = false;
   public data?: any | [] = [];
   public columns?: string[];
   public showModal = false;
@@ -18,11 +20,13 @@ export class UserlistComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.fetchUsers();
+    this.isAdmin = this.authService.isAdmin();
   }
 
   async fetchUsers() {
@@ -31,7 +35,12 @@ export class UserlistComponent implements OnInit {
 
       this.columns = Object.keys(this.data[0]);
 
-      this.columns.splice(0, 1, 'Ações');
+      if (!this.isAdmin) {
+        this.columns.splice(0, 1);
+        this.columns.splice(0, 1);
+      } else {
+        this.columns.splice(0, 1, 'Ações');
+      }
     } catch (error) {
       console.log('oi');
     }

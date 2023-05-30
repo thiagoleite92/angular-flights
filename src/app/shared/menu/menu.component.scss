@@ -34,6 +34,14 @@
   }
 }
 
+::ng-deep .mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  .content-text {
+    color: white;
+  }
+}
+
 .main-container {
   margin: 20px;
   border: 1px solid rgba(7, 18, 177, 0.2);

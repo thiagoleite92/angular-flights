@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     canActivate: [AuthGuard],
-    path: 'admin',
+    path: '',
     loadChildren: async () => {
       const m = await import('./admin/admin.module');
       return m.AdminModule;
