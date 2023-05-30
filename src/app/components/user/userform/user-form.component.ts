@@ -10,7 +10,7 @@ import {
   isPasswordStrong,
 } from '../../../../utils/passwordUtils';
 
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LocationService } from '../../../service/location.service';
 import { NotificationService } from '../../../service/notification.service';
 import { LocationResponseType } from '../../../service/types/location-response.type';
@@ -18,6 +18,7 @@ import { SelectType } from '../../../shared/input/select-type';
 import { UserType } from '../types/user-type';
 import { UserService } from '../user.service';
 import { AuthService } from '../../../service/auth.service';
+import { OneUser } from '../types/user-response.type';
 
 @Component({
   selector: 'app-user-form',
@@ -28,6 +29,11 @@ export class UserFormComponent implements OnInit {
   private userForm: FormGroup;
   public btnIsDisabled = false;
   public isLoading = false;
+  public isEdit = false;
+  public editActualLocation: string | null = '';
+  public editRole: string | null = '';
+
+  userId = '';
 
   public locations?: SelectType[] | any;
 
@@ -42,7 +48,8 @@ export class UserFormComponent implements OnInit {
     private userService: UserService,
     private notificationService: NotificationService,
     private authService: AuthService,
-    private route: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.userForm = this.fb.group({
       name: [
@@ -73,7 +80,17 @@ export class UserFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      const userId = params?.['userId'];
+      if (!userId) {
+        return;
+      }
+      this.userId = userId;
+      this.fetchUserDetails(userId);
+    });
+
     this.locations = this.getLocations();
+    this.isEdit = this.router.url.includes('/editar');
   }
 
   getReference(field: string): AbstractControl {
@@ -110,11 +127,16 @@ export class UserFormComponent implements OnInit {
     };
 
     try {
-      await this.userService.post('/user', data);
+      if (this.isEdit) {
+        await this.userService.updateUser(this.userId, data);
+      } else {
+        await this.userService.post('/user', data);
+      }
+
       this.notificationService.message({
-        message: 'Usuário criado com sucesso.',
+        message: `Usuário ${this.isEdit ? 'editado' : 'salvo'} com sucesso.`,
       });
-      this.route.navigate(['/admin/usuarios']);
+      this.router.navigate(['/admin/usuarios']);
     } catch (error: any) {
       const { message } = error.error;
       const { status } = error;
@@ -132,13 +154,24 @@ export class UserFormComponent implements OnInit {
         this.notificationService.message({
           message: 'Sessão expirada. Faça login novamente.',
         });
-        this.route.navigate(['/login']);
+        this.router.navigate(['/login']);
         return;
       }
     }
   }
 
   statusBtn(event: any): boolean {
+    if (this.isEdit) {
+      console.log('isEdit');
+
+      return (this.btnIsDisabled =
+        !event &&
+        !!this.userForm?.value?.name &&
+        !!this.userForm?.value?.email &&
+        !!this.userForm?.value?.actualLocation &&
+        !!this.userForm?.value?.role);
+    }
+
     return (this.btnIsDisabled =
       !event &&
       !!this.userForm?.value?.name &&
@@ -147,5 +180,30 @@ export class UserFormComponent implements OnInit {
       !!this.userForm?.value?.confirmPassword &&
       !!this.userForm?.value?.actualLocation &&
       !!this.userForm?.value?.role);
+  }
+
+  async fetchUserDetails(userId: string): Promise<any> {
+    try {
+      const user = (await this.userService.getUsers(userId)) as OneUser;
+
+      if (!user) {
+        this.notificationService.message({ message: 'Usuário não encontrado' });
+        return this.router.navigateByUrl('/admin/usuarios');
+      }
+
+      const userInfo = {
+        name: user.name,
+        actualLocation: user.actualLocation,
+        email: user.email,
+        role: user.role === 'PILOT' ? 'PILOTO' : 'ADMINISTRADOR',
+      };
+
+      this.userForm.patchValue(userInfo);
+
+      console.log(this.userForm);
+
+      this.editActualLocation = userInfo.actualLocation ?? null;
+      this.editRole = user.role === 'PILOT' ? 'PILOT' : 'ADMIN';
+    } catch (error) {}
   }
 }

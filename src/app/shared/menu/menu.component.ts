@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { capitalizeFirstLetter } from '../../../utils/stringUtils';
 
 interface RoutesMap {
   [key: string]: boolean;
@@ -43,18 +44,26 @@ export class MenuComponent implements OnInit {
   }
 
   setNavigation(pathname: string): void {
-    if (pathname.includes('/registrar')) {
-      const [, admin, name] = pathname.split('/');
+    const [, admin, name] = pathname.split('/');
+    const nameCapitalized = capitalizeFirstLetter(name);
 
-      this.pageTitle = name;
+    if (pathname.includes('/registrar')) {
+      this.pageTitle = nameCapitalized;
       this.navigateUrl = `/${admin}/${name}`;
       this.buttonText = 'Voltar';
 
       return;
     }
 
+    if (pathname.includes('/usuarios/editar')) {
+      this.pageTitle = nameCapitalized;
+      (this.buttonText = 'Voltar'), (this.navigateUrl = `/${admin}/${name}`);
+
+      return;
+    }
+
     if (pathname.includes('/usuarios')) {
-      this.pageTitle = 'Usuários';
+      this.pageTitle = nameCapitalized;
       this.buttonText = 'Novo usuário';
       this.navigateUrl = '/admin/usuarios/registrar';
 
@@ -62,7 +71,7 @@ export class MenuComponent implements OnInit {
     }
 
     if (pathname.includes('/rotas')) {
-      this.pageTitle = 'Rotas';
+      this.pageTitle = nameCapitalized;
       this.buttonText = 'Nova rota';
       this.navigateUrl = '/admin/rotas/registrar';
 

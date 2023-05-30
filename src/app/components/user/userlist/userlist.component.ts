@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { UserResponse } from '../types/user-response.type';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../../service/notification.service';
+import { AllUsers } from '../types/user-response.type';
 
 @Component({
   selector: 'app-userlist',
@@ -12,7 +12,7 @@ import { NotificationService } from '../../../service/notification.service';
 export class UserlistComponent implements OnInit {
   public data?: any | [] = [];
   public columns?: string[];
-  public showDeleteModal = false;
+  public showModal = false;
   public userId = '';
 
   constructor(
@@ -50,19 +50,19 @@ export class UserlistComponent implements OnInit {
     }
   }
 
-  async deleteUser(userId: string): Promise<void> {
+  async deleteUser(): Promise<void> {
     try {
-      await this.userService.deleteUser(userId);
-      this.handleDeleteUser(userId);
+      await this.userService.deleteUser(this.userId);
+      this.handleDeleteUser(this.userId);
     } catch (error) {
       console.log(error);
     } finally {
-      this.showDeleteModal = false;
+      this.showModal = false;
     }
   }
 
   handleStatusUpdate(userId: string): void {
-    const userRow = this.data.find((user: UserResponse) => userId === user.id);
+    const userRow = this.data.find((user: AllUsers) => userId === user.id);
     userRow.Status = !userRow.Status;
     this.notification.message({
       message: `Usuário ${userRow.Status ? 'Ativado' : ' Desativado'}`,
@@ -71,7 +71,7 @@ export class UserlistComponent implements OnInit {
 
   handleDeleteUser(userId: string): void {
     const userIndex = this.data.findIndex(
-      (user: UserResponse) => userId === user.id
+      (user: AllUsers) => userId === user.id
     );
 
     if (userIndex >= 0) {
@@ -84,15 +84,16 @@ export class UserlistComponent implements OnInit {
   }
 
   handleEdit(id: string) {
-    this.router.navigateByUrl(`/admin/usuarios/${id}/editar`);
+    this.router.navigateByUrl(`/admin/usuarios/editar/${id}`);
   }
 
-  openDeleteModal(id: string) {
+  openModal(id: string) {
     this.userId = id;
-    this.showDeleteModal = true;
+    this.showModal = true;
   }
 
-  closeModal(event: boolean) {
-    this.showDeleteModal = event;
+  closeModal() {
+    this.userId = '';
+    this.showModal = false;
   }
 }

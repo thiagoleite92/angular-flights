@@ -27,6 +27,7 @@
         [isText]="true"
         (btnIsDisabled)="statusBtn($event)"
         type="password"
+        *ngIf="!isEdit"
       ></app-input>
       <app-input
         errorMessage="Senhas não coincidem"
@@ -36,6 +37,7 @@
         [isText]="true"
         (btnIsDisabled)="statusBtn($event)"
         type="password"
+        *ngIf="!isEdit"
       ></app-input>
     </div>
     <div class="form-field-row">
@@ -46,6 +48,7 @@
         [options]="locations"
         [isAsyncSelect]="true"
         (btnIsDisabled)="statusBtn($event)"
+        [editActualLocation]="editActualLocation"
       ></app-input>
       <app-input
         label="Tipo de Usuário"
@@ -54,6 +57,7 @@
         [options]="userOptions"
         [isSelect]="true"
         (btnIsDisabled)="statusBtn($event)"
+        [editRole]="editRole"
         placeHolder="Tipo de Usuário"
       ></app-input>
     </div>

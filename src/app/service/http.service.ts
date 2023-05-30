@@ -7,9 +7,9 @@ export class HttpService {
 
   constructor(protected http: HttpClient) {}
 
-  public patch(url: string, id: string, body: any): Promise<any> {
+  public patch(url: string, body: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.patch(`${this.mountUrl(url)}/${id}/status`, body).subscribe({
+      this.http.patch(`${this.mountUrl(url)}`, body).subscribe({
         next: (v) => resolve(v),
         error: (e) => reject(e),
       });

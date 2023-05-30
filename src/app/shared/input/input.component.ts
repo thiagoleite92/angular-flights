@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
 @Component({
@@ -6,7 +14,7 @@ import { AbstractControl } from '@angular/forms';
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
 })
-export class InputComponent {
+export class InputComponent implements OnInit {
   @Input() public label = '';
   @Input() public placeHolder = '';
   @Input() public type = '';
@@ -21,7 +29,30 @@ export class InputComponent {
 
   @Input() public options?: any;
 
+  @Input() public editActualLocation: string | null = '';
+  @Input() public editRole: string | null = '';
+
   public hide = true;
+
+  ngOnInit(): void {
+    if (this.editActualLocation) {
+      this.fieldReference?.setValue(this.editActualLocation);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.fieldReference?.value);
+
+    if (this.editActualLocation) {
+      this.fieldReference?.setValue(
+        changes['editActualLocation']?.currentValue
+      );
+    }
+
+    if (this.editRole) {
+      this.fieldReference?.setValue(changes['editRole']?.currentValue);
+    }
+  }
 
   onChange(event: any) {
     this.fieldReference?.setValue(event);
