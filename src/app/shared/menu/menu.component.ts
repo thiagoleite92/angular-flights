@@ -58,6 +58,13 @@ export class MenuComponent implements OnInit {
       return;
     }
 
+    if (pathname.includes('/rotas/editar')) {
+      this.pageTitle = nameCapitalized;
+      (this.buttonText = 'Voltar'), (this.navigateUrl = `/${name}`);
+
+      return;
+    }
+
     if (pathname.includes('/usuarios/editar')) {
       this.pageTitle = nameCapitalized;
       (this.buttonText = 'Voltar'), (this.navigateUrl = `/${name}`);

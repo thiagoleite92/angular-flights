@@ -31,6 +31,10 @@ const routes: Routes = [
     component: UserFormComponent,
   },
   {
+    path: 'rotas/editar/:routeId',
+    component: UserFormComponent,
+  },
+  {
     path: 'voos',
     component: UserlistComponent,
   },

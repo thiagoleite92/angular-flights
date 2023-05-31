@@ -13,4 +13,8 @@ export class RouteService extends HttpService {
   async getRoutes(): Promise<any> {
     return this.get(this.routeUrl);
   }
+
+  async deleteRoute(routeId: string): Promise<any> {
+    return this.delete(this.routeUrl, routeId);
+  }
 }
