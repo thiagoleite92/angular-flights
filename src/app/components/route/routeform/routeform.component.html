@@ -1,0 +1,51 @@
+<app-menu>
+  <form>
+    <div class="form-field-row">
+      <app-input
+        label="Origem"
+        [required]="true"
+        [fieldReference]="getReference('origin')"
+        [options]="locations"
+        [isAsyncSelect]="true"
+        (btnIsDisabled)="statusBtn($event)"
+        [editActualLocation]="editActualLocation"
+      ></app-input>
+      <app-input
+        label="Destino"
+        [required]="true"
+        [fieldReference]="getReference('destiny')"
+        [options]="locations"
+        [isAsyncSelect]="true"
+        (btnIsDisabled)="statusBtn($event)"
+        [editActualLocation]="editActualLocation"
+      ></app-input>
+    </div>
+    <div class="form-field-row">
+      <app-input
+        label="Data de Partida"
+        [required]="true"
+        [fieldReference]="getReference('departureTime')"
+        [options]="locations"
+        [isDatePicker]="true"
+        (btnIsDisabled)="statusBtn($event)"
+        [editActualLocation]="editActualLocation"
+      ></app-input>
+      <app-input
+        label="Destino"
+        [required]="true"
+        [fieldReference]="getReference('durationEstimated')"
+        [options]="locations"
+        [isAsyncSelect]="true"
+        (btnIsDisabled)="statusBtn($event)"
+        [editActualLocation]="editActualLocation"
+      ></app-input>
+    </div>
+    <app-button
+      class="btn-save"
+      text="Salvar Rota"
+      type="button"
+      [isDisabled]="!btnIsDisabled"
+      [isLoading]="isLoading"
+    ></app-button>
+  </form>
+</app-menu>

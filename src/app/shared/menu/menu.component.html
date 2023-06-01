@@ -31,6 +31,24 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>flights-angular</span>
+      <div class="user-info-container">
+        <app-icon
+          (click)="setUserInfo()"
+          iconType="person"
+          customClass="white-icon"
+          ><span class="content-text">Minhas informações</span></app-icon
+        >
+        <div *ngIf="showUserInfo" class="info-container">
+          <span> Nome: {{ userInfo?.name }} </span>
+          <span> Email: {{ userInfo?.email }} </span>
+          <span *ngIf="!isAdmin">
+            Local atual: {{ userInfo?.actualLocation }}
+          </span>
+          <span *ngIf="!isAdmin">
+            Disponível: {{ userInfo?.isAvailable ? "Sim" : "Não" }}
+          </span>
+        </div>
+      </div>
       <app-icon
         (click)="logout()"
         iconType="exit_to_app"

@@ -7,6 +7,7 @@ import { AuthGuard } from './auth.guard';
 import { LocationService } from './location.service';
 import { RequestInterceptor } from './request-interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FlightService } from './flight.service';
 
 @NgModule({
   declarations: [],
@@ -23,6 +24,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
       useClass: RequestInterceptor,
       multi: true,
     },
+    FlightService,
   ],
 })
 export class ServiceModule {}

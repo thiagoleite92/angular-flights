@@ -6,10 +6,6 @@ import { Router } from '@angular/router';
 import { capitalizeFirstLetter } from '../../../utils/stringUtils';
 import { AuthService } from '../../service/auth.service';
 
-interface RoutesMap {
-  [key: string]: boolean;
-}
-
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -21,6 +17,8 @@ export class MenuComponent implements OnInit {
   public navigateUrl: string = '';
   public urlActive: string = '';
   public isAdmin: boolean = false;
+  public userInfo?: any;
+  public showUserInfo = false;
 
   public routes = [
     ['/usuarios', 'Usuários'],
@@ -44,6 +42,9 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.setNavigation(this.router.url);
     this.isAdmin = this.authService.isAdmin();
+    this.userInfo = this.authService.getUserInfo();
+
+    console.log(this.userInfo);
   }
 
   setNavigation(pathname: string): void {
@@ -96,5 +97,9 @@ export class MenuComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+  }
+
+  setUserInfo(): void {
+    this.showUserInfo = !this.showUserInfo;
   }
 }

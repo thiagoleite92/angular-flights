@@ -3,11 +3,10 @@ import { HttpService } from './http.service';
 import { HttpClient } from '@angular/common/http';
 import { LoginResponse } from './types/login-response.type';
 import { Router } from '@angular/router';
+import { UserInfo } from './types/user-info.type';
 
 @Injectable()
 export class AuthService extends HttpService {
-  public role: EventEmitter<boolean> = new EventEmitter<boolean>();
-
   constructor(protected _http: HttpClient, private router: Router) {
     super(_http);
   }
@@ -36,5 +35,9 @@ export class AuthService extends HttpService {
   logout(): void {
     localStorage.clear();
     this.router.navigateByUrl('/login');
+  }
+
+  getUserInfo(): UserInfo | null {
+    return JSON.parse(localStorage.getItem('user') ?? '');
   }
 }

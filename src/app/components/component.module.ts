@@ -8,9 +8,10 @@ import { UserService } from './user/user.service';
 import { UserlistComponent } from './user/userlist/userlist.component';
 import { RouteService } from './route/route.service';
 import { RoutelistComponent } from './route/routelist/routelist.component';
+import { RouteformComponent } from './route/routeform/routeform.component';
 
 @NgModule({
-  declarations: [UserFormComponent, UserlistComponent, RoutelistComponent],
+  declarations: [UserFormComponent, UserlistComponent, RoutelistComponent, RouteformComponent],
   imports: [CommonModule, SharedModule, ServiceModule],
   providers: [UserService, RouteService],
 })

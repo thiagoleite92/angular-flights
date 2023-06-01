@@ -92,3 +92,15 @@
     <div *ngIf="fieldReference?.hasError('required')">Campo obrigatório</div>
   </mat-hint>
 </mat-form-field>
+
+<!-- Date Picker -->
+
+<mat-form-field *ngIf="isDatePicker">
+  <mat-label>{{ label }}</mat-label>
+  <input matInput [matDatepicker]="picker" />
+  <mat-hint>DD/MM/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker">
+    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+  </mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>

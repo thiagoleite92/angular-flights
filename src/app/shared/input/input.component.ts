@@ -26,6 +26,7 @@ export class InputComponent implements OnInit {
   @Input() public isSelect = false;
   @Input() public isAsyncSelect = false;
   @Input() public isText = false;
+  @Input() public isDatePicker = false;
 
   @Input() public options?: any;
 
@@ -41,8 +42,6 @@ export class InputComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.fieldReference?.value);
-
     if (this.editActualLocation) {
       this.fieldReference?.setValue(
         changes['editActualLocation']?.currentValue

@@ -22,6 +22,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { LoaderComponent } from './loader/loader.component';
 import { ServiceModule } from '../service/service.module';
 import { DialogComponent } from './dialog/dialog.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,9 @@ import { DialogComponent } from './dialog/dialog.component';
     MatCheckboxModule,
     MatIconModule,
     MatSlideToggleModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatDialogModule,
   ],
   exports: [
     InputComponent,

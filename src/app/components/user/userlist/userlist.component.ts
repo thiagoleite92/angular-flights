@@ -93,7 +93,7 @@ export class UserlistComponent implements OnInit {
   }
 
   handleEdit(id: string) {
-    this.router.navigateByUrl(`/admin/usuarios/editar/${id}`);
+    this.router.navigateByUrl(`/usuarios/editar/${id}`);
   }
 
   openModal(id: string) {

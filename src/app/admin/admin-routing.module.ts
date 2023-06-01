@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserFormComponent } from '../components/user/userform/user-form.component';
 import { UserlistComponent } from '../components/user/userlist/userlist.component';
 import { RoutelistComponent } from '../components/route/routelist/routelist.component';
+import { RouteformComponent } from '../components/route/routeform/routeform.component';
 
 const routes: Routes = [
   {
@@ -28,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'rotas/registrar',
-    component: UserFormComponent,
+    component: RouteformComponent,
   },
   {
     path: 'rotas/editar/:routeId',
