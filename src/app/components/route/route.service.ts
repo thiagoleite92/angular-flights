@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class RouteService extends HttpService {
   private routeUrl = '/route';
+  private flightUrl = '/flight';
 
   constructor(protected _http: HttpClient) {
     super(_http);
@@ -16,5 +17,10 @@ export class RouteService extends HttpService {
 
   async deleteRoute(routeId: string): Promise<any> {
     return this.delete(this.routeUrl, routeId);
+  }
+
+  async saveFlight(routeId: string): Promise<void> {
+    await this.post(this.flightUrl, { routeId });
+    return;
   }
 }

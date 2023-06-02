@@ -16,8 +16,8 @@ import { AbstractControl } from '@angular/forms';
 })
 export class InputComponent implements OnInit {
   @Input() public label = '';
-  @Input() public placeHolder = '';
-  @Input() public type = '';
+  @Input() public placeholder = '';
+  @Input() public type = 'text';
   @Input() public fieldReference?: AbstractControl;
   @Input() public errorMessage?: string;
   @Input() public required = false;
@@ -27,11 +27,16 @@ export class InputComponent implements OnInit {
   @Input() public isAsyncSelect = false;
   @Input() public isText = false;
   @Input() public isDatePicker = false;
+  @Input() public isTime = false;
+
+  @Input() isDisabled = false;
 
   @Input() public options?: any;
 
   @Input() public editActualLocation: string | null = '';
   @Input() public editRole: string | null = '';
+
+  todayDate: Date = new Date();
 
   public hide = true;
 
@@ -57,11 +62,9 @@ export class InputComponent implements OnInit {
     this.fieldReference?.setValue(event);
     this.fieldReference?.markAsDirty();
 
-    this.btnIsDisabled.emit(this.fieldReference?.invalid);
-  }
+    console.log(event);
 
-  renderLabel(label: string, required: boolean): string {
-    return required ? `${label}*` : label;
+    this.btnIsDisabled.emit(this.fieldReference?.invalid);
   }
 
   isInvalid(reference: AbstractControl): boolean {

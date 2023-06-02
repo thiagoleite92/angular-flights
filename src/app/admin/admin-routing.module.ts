@@ -39,6 +39,7 @@ const routes: Routes = [
     path: 'voos',
     component: UserlistComponent,
   },
+  { path: 'voos/piloto/:pilotId', component: UserlistComponent },
 ];
 
 @NgModule({

@@ -4,10 +4,12 @@
     <p>
       No momento não existem rotas.
       <span *ngIf="isAdmin">
-        <a>Clique aqui</a> para criar a próxima rota.</span
+        <a href="/rotas/registrar" class="link-route">Clique aqui</a>
+        para criar a próxima rota.</span
       >
     </p>
   </div>
+
   <table *ngIf="columns">
     <thead>
       <tr>
@@ -43,13 +45,25 @@
           </div>
 
           <div
-            *ngIf="column === 'Aceitar' && !isAdmin"
+            *ngIf="column === 'Aceitar' && !isAdmin && userInfo?.isAvailable"
             class="container-actions"
           >
             <app-icon
               iconType="calendar_today"
               color="primary"
               (click)="openModal(item['id'])"
+            ></app-icon>
+          </div>
+
+          <div
+            *ngIf="column === 'Aceitar' && !isAdmin && !userInfo?.isAvailable"
+            class="container-actions"
+          >
+            <app-icon
+              iconType="not_interested"
+              color="warn"
+              title="Você já agendou uma rota"
+              customClass="not-allowed"
             ></app-icon>
           </div>
 
@@ -70,6 +84,15 @@
       </tr>
     </tfoot>
   </table>
+
+  <p
+    *ngIf="!userInfo?.isAvailable && columns && data.length && !isAdmin"
+    class="alert-route"
+  >
+    Você já tem uma rota agendada.
+    <a [href]="link" class="link-route">Clique aqui</a>
+    para visualizar.
+  </p>
 </app-menu>
 <app-dialog *ngIf="showModal">
   <div class="dialog-content">

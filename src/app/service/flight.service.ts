@@ -9,9 +9,4 @@ export class FlightService extends HttpService {
   constructor(protected _http: HttpClient) {
     super(_http);
   }
-
-  async saveFlight(routeId: string): Promise<void> {
-    await this.post(this.flightURL, { routeId });
-    return;
-  }
 }

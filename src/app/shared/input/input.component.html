@@ -4,13 +4,15 @@
   *ngIf="isText"
   [ngClass]="{ invalid: isInvalid(fieldReference!) }"
 >
-  <mat-label>{{ renderLabel(label, required) }}</mat-label>
+  <mat-label>{{ label }}</mat-label>
   <input
     [type]="type === 'password' && hide ? 'password' : 'text'"
     matInput
-    placeholder="{{ placeHolder }}"
+    [placeholder]="placeholder"
     [ngModel]="fieldReference?.value"
     (ngModelChange)="onChange($event)"
+    [required]="required"
+    [disabled]="isDisabled"
   />
   <button
     *ngIf="type === 'password'"
@@ -58,7 +60,8 @@
     [required]="required"
     [ngModel]="fieldReference?.value"
     (ngModelChange)="onChange($event)"
-    placeholder="{{ placeHolder }}"
+    [placeholder]="placeholder"
+    [disabled]="isDisabled"
   >
     <mat-option *ngFor="let opt of options | async" [value]="opt.value">
       {{ opt.label }}
@@ -81,7 +84,8 @@
     [required]="required"
     [ngModel]="fieldReference?.value"
     (ngModelChange)="onChange($event)"
-    placeholder="{{ placeHolder }}"
+    [placeholder]="placeholder"
+    [disabled]="isDisabled"
   >
     <mat-option *ngFor="let opt of options" [value]="opt.value">
       {{ opt.label }}
@@ -97,10 +101,35 @@
 
 <mat-form-field *ngIf="isDatePicker">
   <mat-label>{{ label }}</mat-label>
-  <input matInput [matDatepicker]="picker" />
-  <mat-hint>DD/MM/YYYY</mat-hint>
-  <mat-datepicker-toggle matIconSuffix [for]="picker">
-    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-  </mat-datepicker-toggle>
+  <input
+    matInput
+    [required]="required"
+    #locale
+    locale="pt-br"
+    [matDatepicker]="picker"
+    [ngModel]="fieldReference?.value"
+    (ngModelChange)="onChange($event)"
+    [disabled]="isDisabled"
+    [min]="todayDate"
+    [placeholder]="placeholder"
+  />
+  <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+<!-- Time -->
+
+<mat-form-field *ngIf="isTime">
+  <mat-label>{{ label }}</mat-label>
+  <input
+    [required]="required"
+    [type]="type"
+    matInput
+    #time
+    [ngModel]="fieldReference?.value"
+    (ngModelChange)="onChange($event)"
+    [placeholder]="placeholder"
+    [disabled]="isDisabled"
+  />
 </mat-form-field>

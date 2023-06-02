@@ -11,7 +11,12 @@ import { RoutelistComponent } from './route/routelist/routelist.component';
 import { RouteformComponent } from './route/routeform/routeform.component';
 
 @NgModule({
-  declarations: [UserFormComponent, UserlistComponent, RoutelistComponent, RouteformComponent],
+  declarations: [
+    UserFormComponent,
+    UserlistComponent,
+    RoutelistComponent,
+    RouteformComponent,
+  ],
   imports: [CommonModule, SharedModule, ServiceModule],
   providers: [UserService, RouteService],
 })

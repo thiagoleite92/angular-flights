@@ -6,6 +6,22 @@
   padding: 50px;
 }
 
+.link-route {
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color: #3f51b5;
+
+  &:hover {
+    filter: brightness(1.2);
+  }
+}
+
+.alert-route {
+  margin-top: 10px;
+}
+
 table {
   width: 96%;
   border-collapse: collapse;

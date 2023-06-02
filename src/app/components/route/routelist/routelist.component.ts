@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../service/auth.service';
 import { NotificationService } from '../../../service/notification.service';
 import { AllRoutes } from '../types/route-response.type';
-import { FlightService } from '../../../service/flight.service';
+import { UserInfo } from '../../../service/types/user-info.type';
 
 @Component({
   selector: 'app-routelist',
@@ -17,6 +17,8 @@ export class RoutelistComponent implements OnInit {
   public columns?: string[];
   public showModal = false;
   public routeId = '';
+  public userInfo: UserInfo | null = null;
+  public link: string = '';
 
   public dialogTitle = 'Essa ação é irreversível. Deseja continuar?';
 
@@ -24,24 +26,22 @@ export class RoutelistComponent implements OnInit {
     private routeService: RouteService,
     private router: Router,
     private authService: AuthService,
-    private notification: NotificationService,
-    private flightService: FlightService
+    private notification: NotificationService
   ) {}
 
   ngOnInit(): void {
-    console.log(this.authService.isAdmin(), 'isadmi');
+    this.userInfo = this.authService.getUserInfo() as UserInfo;
 
-    if (!this.authService.isAdmin()) {
+    if (this.userInfo?.role === 'PILOT') {
+      console.log(this.link, 'dentro do if');
       this.dialogTitle = 'Confirma agendamento da rota?';
       this.isAdmin = false;
+      this.link = `/voos/piloto/${this.userInfo?.id}`;
     }
     this.fetchRoutes();
-
-    if (this.isAdmin) {
-    }
   }
 
-  async fetchRoutes(): Promise<any> {
+  async fetchRoutes(): Promise<void> {
     try {
       this.data = await this.routeService.getRoutes();
 
@@ -62,7 +62,7 @@ export class RoutelistComponent implements OnInit {
         this.columns.splice(0, 1, 'Aceitar');
       }
 
-      console.log(this.data);
+      return;
     } catch (error) {
       console.log(error);
     }
@@ -109,7 +109,7 @@ export class RoutelistComponent implements OnInit {
 
   async confirmSchedule(): Promise<void> {
     try {
-      await this.flightService.saveFlight(this.routeId);
+      await this.routeService.saveFlight(this.routeId);
     } catch (error: any) {
       const { statusCode, message } = error.error;
 

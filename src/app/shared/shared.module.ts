@@ -22,7 +22,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { LoaderComponent } from './loader/loader.component';
 import { ServiceModule } from '../service/service.module';
 import { DialogComponent } from './dialog/dialog.component';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 
@@ -67,5 +67,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     LoaderComponent,
     DialogComponent,
   ],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
 })
 export class SharedModule {}

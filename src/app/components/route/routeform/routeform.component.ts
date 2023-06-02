@@ -16,7 +16,7 @@ import { LocationService } from '../../../service/location.service';
   styleUrls: ['./routeform.component.scss'],
 })
 export class RouteformComponent implements OnInit {
-  private routerForm: FormGroup;
+  public routerForm: FormGroup;
   public btnIsDisabled = false;
   public routeId = '';
   public isEdit = false;
@@ -37,6 +37,8 @@ export class RouteformComponent implements OnInit {
     this.routerForm = this.fb.group({
       origin: ['', [Validators.required]],
       destiny: ['', [Validators.required]],
+      departureDate: ['', [Validators.required]],
+      arriveDate: ['', [Validators.required]],
       departureTime: ['', [Validators.required]],
       durationEstimated: ['', [Validators.required]],
     });
@@ -91,5 +93,12 @@ export class RouteformComponent implements OnInit {
     });
 
     return locations as SelectType[];
+  }
+
+  console(): void {
+    console.log(this.routerForm.value['origin']);
+  }
+  isOriginFill(): boolean {
+    return !this.routerForm.value['origin'];
   }
 }

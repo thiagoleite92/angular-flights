@@ -1,5 +1,5 @@
 <app-menu>
-  <form>
+  <form (mouseover)="console()">
     <div class="form-field-row">
       <app-input
         label="Origem"
@@ -8,7 +8,6 @@
         [options]="locations"
         [isAsyncSelect]="true"
         (btnIsDisabled)="statusBtn($event)"
-        [editActualLocation]="editActualLocation"
       ></app-input>
       <app-input
         label="Destino"
@@ -17,27 +16,51 @@
         [options]="locations"
         [isAsyncSelect]="true"
         (btnIsDisabled)="statusBtn($event)"
-        [editActualLocation]="editActualLocation"
+        [isDisabled]="isOriginFill()"
       ></app-input>
     </div>
     <div class="form-field-row">
       <app-input
         label="Data de Partida"
         [required]="true"
-        [fieldReference]="getReference('departureTime')"
+        [fieldReference]="getReference('departureDate')"
         [options]="locations"
         [isDatePicker]="true"
         (btnIsDisabled)="statusBtn($event)"
         [editActualLocation]="editActualLocation"
       ></app-input>
       <app-input
-        label="Destino"
+        label="Duração"
         [required]="true"
         [fieldReference]="getReference('durationEstimated')"
         [options]="locations"
-        [isAsyncSelect]="true"
+        [isTime]="true"
         (btnIsDisabled)="statusBtn($event)"
         [editActualLocation]="editActualLocation"
+        type="text"
+        [placeholder]="'06:30'"
+      ></app-input>
+    </div>
+    <div class="form-field-row">
+      <app-input
+        label="Horário de Partida"
+        [required]="true"
+        [fieldReference]="getReference('departureTime')"
+        [options]="locations"
+        [isTime]="true"
+        (btnIsDisabled)="statusBtn($event)"
+        [editActualLocation]="editActualLocation"
+        type="time"
+      ></app-input>
+      <app-input
+        label="Previsão de Chegada"
+        [required]="true"
+        [fieldReference]="getReference('arriveDate')"
+        [options]="locations"
+        [isDatePicker]="true"
+        (btnIsDisabled)="statusBtn($event)"
+        [editActualLocation]="editActualLocation"
+        [isDisabled]="true"
       ></app-input>
     </div>
     <app-button
