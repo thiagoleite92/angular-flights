@@ -95,10 +95,9 @@ export class RouteformComponent implements OnInit {
     return locations as SelectType[];
   }
 
-  console(): void {
-    console.log(this.routerForm.value['origin']);
-  }
-  isOriginFill(): boolean {
-    return !this.routerForm.value['origin'];
-  }
+  // isOriginFilled(): boolean {
+  //   console.log(this.routerForm.controls['origin'].invalid);
+
+  //   return !this.routerForm.value['origin'];
+  // }
 }

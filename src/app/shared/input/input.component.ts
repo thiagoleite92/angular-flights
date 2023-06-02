@@ -23,6 +23,8 @@ export class InputComponent implements OnInit {
   @Input() public required = false;
   @Output() public btnIsDisabled: EventEmitter<boolean> = new EventEmitter();
 
+  @Input() public mask?: string;
+
   @Input() public isSelect = false;
   @Input() public isAsyncSelect = false;
   @Input() public isText = false;
