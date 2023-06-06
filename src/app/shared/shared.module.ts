@@ -25,6 +25,7 @@ import { DialogComponent } from './dialog/dialog.component';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatNativeDateModule,
     MatDatepickerModule,
     MatDialogModule,
+    NgxMaskModule.forRoot(),
   ],
   exports: [
     InputComponent,

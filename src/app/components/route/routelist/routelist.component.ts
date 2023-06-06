@@ -121,4 +121,8 @@ export class RoutelistComponent implements OnInit {
       }
     }
   }
+
+  createRouteNavegate(): void {
+    this.router.navigateByUrl(`/rotas/registrar`);
+  }
 }

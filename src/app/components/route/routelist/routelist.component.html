@@ -4,7 +4,9 @@
     <p>
       No momento não existem rotas.
       <span *ngIf="isAdmin">
-        <a href="/rotas/registrar" class="link-route">Clique aqui</a>
+        <button (click)="createRouteNavegate()" class="link-route">
+          Clique aqui
+        </button>
         para criar a próxima rota.</span
       >
     </p>

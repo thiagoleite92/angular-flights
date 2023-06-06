@@ -162,8 +162,6 @@ export class UserFormComponent implements OnInit {
 
   statusBtn(event: any): boolean {
     if (this.isEdit) {
-      console.log('isEdit');
-
       return (this.btnIsDisabled =
         !event &&
         !!this.userForm?.value?.name &&

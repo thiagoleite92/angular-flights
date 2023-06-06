@@ -2,7 +2,6 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
   Output,
   SimpleChanges,
@@ -22,8 +21,14 @@ export class InputComponent implements OnInit {
   @Input() public errorMessage?: string;
   @Input() public required = false;
   @Output() public btnIsDisabled: EventEmitter<boolean> = new EventEmitter();
+  @Output() public selectedOrigin: EventEmitter<string> = new EventEmitter();
+  @Output() public calcArriveDateEmitter: EventEmitter<string> =
+    new EventEmitter();
+  @Output() public resetHourDepartureEmitter: EventEmitter<string> =
+    new EventEmitter();
 
-  @Input() public mask?: string;
+  @Input() public mask: string = '';
+  @Input() public suffix: string = '';
 
   @Input() public isSelect = false;
   @Input() public isAsyncSelect = false;
@@ -64,7 +69,17 @@ export class InputComponent implements OnInit {
     this.fieldReference?.setValue(event);
     this.fieldReference?.markAsDirty();
 
-    console.log(event);
+    if (this.label === 'Origem') {
+      this.selectedOrigin.emit(event);
+    }
+
+    if (this.label === 'Data de Partida' && this.fieldReference?.valueChanges) {
+      this.resetHourDepartureEmitter.emit();
+    }
+
+    if (this.label === 'Duração Estimada' && event.length === 4) {
+      this.calcArriveDateEmitter.emit(event);
+    }
 
     this.btnIsDisabled.emit(this.fieldReference?.invalid);
   }

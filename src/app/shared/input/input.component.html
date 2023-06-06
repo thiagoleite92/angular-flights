@@ -6,13 +6,15 @@
 >
   <mat-label>{{ label }}</mat-label>
   <input
-    [type]="type === 'password' && hide ? 'password' : 'text'"
     matInput
+    [type]="type === 'password' && hide ? 'password' : 'text'"
     [placeholder]="placeholder"
     [ngModel]="fieldReference?.value"
     (ngModelChange)="onChange($event)"
     [required]="required"
     [disabled]="isDisabled"
+    [mask]="mask"
+    [suffix]="suffix"
   />
   <button
     *ngIf="type === 'password'"
@@ -45,6 +47,10 @@
 
     <div *ngIf="fieldReference?.hasError('passwordMatch')">
       {{ errorMessage }}
+    </div>
+
+    <div *ngIf="fieldReference?.hasError('invalidDuration')">
+      Duração mínima 30 minutos
     </div>
   </mat-hint>
 </mat-form-field>
@@ -99,7 +105,10 @@
 
 <!-- Date Picker -->
 
-<mat-form-field *ngIf="isDatePicker">
+<mat-form-field
+  *ngIf="isDatePicker"
+  [ngClass]="{ invalid: isInvalid(fieldReference!) }"
+>
   <mat-label>{{ label }}</mat-label>
   <input
     matInput
@@ -120,7 +129,10 @@
 
 <!-- Time -->
 
-<mat-form-field *ngIf="isTime">
+<mat-form-field
+  *ngIf="isTime"
+  [ngClass]="{ invalid: isInvalid(fieldReference!) }"
+>
   <mat-label>{{ label }}</mat-label>
   <input
     [required]="required"
@@ -132,4 +144,8 @@
     [placeholder]="placeholder"
     [disabled]="isDisabled"
   />
+  <mat-hint *ngIf="isInvalid(fieldReference!)">
+    <div *ngIf="fieldReference?.hasError('required')">Campo obrigatório</div>
+    <div *ngIf="fieldReference?.hasError('invalidHour')">Hora inválida</div>
+  </mat-hint>
 </mat-form-field>

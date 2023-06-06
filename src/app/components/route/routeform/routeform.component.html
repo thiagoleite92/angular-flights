@@ -8,12 +8,13 @@
         [options]="locations"
         [isAsyncSelect]="true"
         (btnIsDisabled)="statusBtn($event)"
+        (selectedOrigin)="filterLocations($event)"
       ></app-input>
       <app-input
         label="Destino"
         [required]="true"
         [fieldReference]="getReference('destiny')"
-        [options]="locations"
+        [options]="destinyLocations"
         [isAsyncSelect]="true"
         (btnIsDisabled)="statusBtn($event)"
         [isDisabled]="routerForm.controls['origin'].invalid"
@@ -29,6 +30,7 @@
         (btnIsDisabled)="statusBtn($event)"
         [editActualLocation]="editActualLocation"
         [isDisabled]="routerForm.controls['destiny'].invalid"
+        (resetHourDepartureEmitter)="resetHour()"
       ></app-input>
       <app-input
         label="Horário de Partida"
@@ -37,33 +39,32 @@
         [options]="locations"
         [isTime]="true"
         (btnIsDisabled)="statusBtn($event)"
-        [editActualLocation]="editActualLocation"
         [isDisabled]="routerForm.controls['departureDate'].invalid"
         type="time"
+        errorMessage="Horário de partida não pode ser anterior a hora atual"
       ></app-input>
     </div>
     <div class="form-field-row">
       <app-input
-        label="Duração"
+        label="Duração Estimada"
         [required]="true"
         [fieldReference]="getReference('durationEstimated')"
         [options]="locations"
-        [isTime]="true"
+        [isText]="true"
         (btnIsDisabled)="statusBtn($event)"
-        [editActualLocation]="editActualLocation"
         type="text"
         [placeholder]="'06:30'"
         [isDisabled]="routerForm.controls['departureTime'].invalid"
+        (calcArriveDateEmitter)="calcArriveDate($event)"
+        mask="00:m0"
+        suffix=" hora(s)"
       ></app-input>
       <app-input
         label="Previsão de Chegada"
         [fieldReference]="getReference('arriveDate')"
-        [options]="locations"
         [isText]="true"
-        (btnIsDisabled)="statusBtn($event)"
         [editActualLocation]="editActualLocation"
         [isDisabled]="true"
-        mask="00:00"
       ></app-input>
     </div>
     <app-button
@@ -72,6 +73,7 @@
       type="button"
       [isDisabled]="!btnIsDisabled"
       [isLoading]="isLoading"
+      (click)="handleSave()"
     ></app-button>
   </form>
 </app-menu>

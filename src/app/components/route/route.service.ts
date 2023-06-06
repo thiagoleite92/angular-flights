@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { HttpClient } from '@angular/common/http';
+import { SaveRoute } from './types/route-save.type';
 
 @Injectable()
 export class RouteService extends HttpService {
@@ -22,5 +23,9 @@ export class RouteService extends HttpService {
   async saveFlight(routeId: string): Promise<void> {
     await this.post(this.flightUrl, { routeId });
     return;
+  }
+
+  async saveRoute(data: SaveRoute): Promise<any> {
+    return this.post(this.routeUrl, data);
   }
 }
