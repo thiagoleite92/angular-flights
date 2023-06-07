@@ -1,5 +1,8 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import * as moment from 'moment';
+import { MomentService } from '../app/service/moment.service';
+
+const momentService = new MomentService();
 
 export function isValidHour(): ValidatorFn {
   return (fieldForm: AbstractControl): ValidationErrors | null => {
@@ -24,16 +27,12 @@ function calcValidDate(departureDate: string, departureTime: string) {
     return;
   }
 
-  const [hours, minutes] = departureTime.split(':');
+  const departureDateISOString = momentService.setDepartureDateToISOStr(
+    departureDate,
+    departureTime
+  );
 
-  const dateToday = moment(new Date()).format('DD-MM-yyyy HH:mm');
-
-  const startDate = moment(new Date(`${departureDate}`))
-    .set('hours', Number(hours))
-    .set('minutes', Number(minutes))
-    .format('DD-MM-yyyy HH:mm');
-
-  return moment(startDate).isAfter(dateToday);
+  return moment(departureDateISOString).isAfter(new Date().toISOString());
 }
 
 export function minimumDuration(): ValidatorFn {
@@ -52,8 +51,6 @@ export function minimumDuration(): ValidatorFn {
     const minutes = time.slice(2, 4).join('');
 
     const totalTime = 60 * Number(hours) + Number(minutes);
-
-    console.log(totalTime);
 
     if (!duration) {
       return null;

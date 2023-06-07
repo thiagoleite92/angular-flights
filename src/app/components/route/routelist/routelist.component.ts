@@ -3,8 +3,8 @@ import { RouteService } from '../route.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../service/auth.service';
 import { NotificationService } from '../../../service/notification.service';
-import { AllRoutes } from '../types/route-response.type';
 import { UserInfo } from '../../../service/types/user-info.type';
+import { RouteResponse } from '../types/route-response.type';
 
 @Component({
   selector: 'app-routelist',
@@ -93,7 +93,7 @@ export class RoutelistComponent implements OnInit {
 
   handleDeleteRoute(routeId: string): void {
     const routeIndex = this.data.findIndex(
-      (route: AllRoutes) => routeId === route.id
+      (route: RouteResponse) => routeId === route.id
     );
 
     if (routeIndex >= 0) {

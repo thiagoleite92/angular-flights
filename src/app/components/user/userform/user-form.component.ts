@@ -193,12 +193,10 @@ export class UserFormComponent implements OnInit {
         name: user.name,
         actualLocation: user.actualLocation,
         email: user.email,
-        role: user.role === 'PILOT' ? 'PILOTO' : 'ADMINISTRADOR',
+        role: user.role === 'PILOT' ? 'PILOT' : 'ADMIN',
       };
 
       this.userForm.patchValue(userInfo);
-
-      console.log(this.userForm);
 
       this.editActualLocation = userInfo.actualLocation ?? null;
       this.editRole = user.role === 'PILOT' ? 'PILOT' : 'ADMIN';

@@ -13,8 +13,6 @@ export class MomentService {
 
     time = hours.split('');
 
-    console.log(time);
-
     const horas = time.slice(0, 2).join('');
     const minutos = time.slice(2, 4).join('');
 
@@ -51,11 +49,7 @@ export class MomentService {
     departureDate: string,
     departureTime: string
   ): string {
-    console.log(departureTime);
-
     const { hours, minutes } = this.getHourAndMinutes(departureTime);
-
-    console.log(hours, minutes);
 
     const date = moment(new Date(`${departureDate}`))
       .set('hours', Number(hours))
@@ -63,5 +57,9 @@ export class MomentService {
       .format('DD/MM/YYYY HH:mm');
 
     return this.setDateToISOString(date);
+  }
+
+  formatISODateString(date: string): string {
+    return moment(date).format('DD/MM/YYYY HH:mm');
   }
 }

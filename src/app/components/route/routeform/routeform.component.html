@@ -28,7 +28,6 @@
         [options]="locations"
         [isDatePicker]="true"
         (btnIsDisabled)="statusBtn($event)"
-        [editActualLocation]="editActualLocation"
         [isDisabled]="routerForm.controls['destiny'].invalid"
         (resetHourDepartureEmitter)="resetHour()"
       ></app-input>
@@ -63,7 +62,6 @@
         label="Previsão de Chegada"
         [fieldReference]="getReference('arriveDate')"
         [isText]="true"
-        [editActualLocation]="editActualLocation"
         [isDisabled]="true"
       ></app-input>
     </div>

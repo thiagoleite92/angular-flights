@@ -13,7 +13,7 @@ import { AbstractControl } from '@angular/forms';
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
 })
-export class InputComponent implements OnInit {
+export class InputComponent {
   @Input() public label = '';
   @Input() public placeholder = '';
   @Input() public type = 'text';
@@ -40,30 +40,8 @@ export class InputComponent implements OnInit {
 
   @Input() public options?: any;
 
-  @Input() public editActualLocation: string | null = '';
-  @Input() public editRole: string | null = '';
-
-  todayDate: Date = new Date();
-
   public hide = true;
-
-  ngOnInit(): void {
-    if (this.editActualLocation) {
-      this.fieldReference?.setValue(this.editActualLocation);
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.editActualLocation) {
-      this.fieldReference?.setValue(
-        changes['editActualLocation']?.currentValue
-      );
-    }
-
-    if (this.editRole) {
-      this.fieldReference?.setValue(changes['editRole']?.currentValue);
-    }
-  }
+  public todayDate = new Date();
 
   onChange(event: any) {
     this.fieldReference?.setValue(event);

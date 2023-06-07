@@ -13,6 +13,10 @@ import { MomentService } from '../../../service/moment.service';
 import { isValidHour, minimumDuration } from '../../../../utils/timesAndDates';
 import { RouteService } from '../route.service';
 import { NotificationService } from '../../../service/notification.service';
+import {
+  RouteResponse,
+  SingleRouteResponse,
+} from '../types/route-response.type';
 
 @Component({
   selector: 'app-routeform',
@@ -29,8 +33,8 @@ export class RouteformComponent implements OnInit {
 
   public destinyLocations: SelectType[] | any;
 
-  public editActualLocation: string | null = '';
-  public editRole: string | null = '';
+  public editOrigin: string | null = '';
+  public editDestiny: string | null = '';
 
   public isLoading = false;
 
@@ -63,6 +67,7 @@ export class RouteformComponent implements OnInit {
         return;
       }
       this.routeId = routeId;
+      this.fetchRouteDetails(routeId);
     });
 
     this.isEdit = this.router.url.includes('/editar');
@@ -72,14 +77,45 @@ export class RouteformComponent implements OnInit {
     this.destinyLocations = loc;
   }
 
+  async fetchRouteDetails(routeId: string): Promise<void> {
+    try {
+      const route = (await this.routeService.getRoutes(
+        routeId
+      )) as SingleRouteResponse;
+
+      if (!route) {
+        this.notificationsService.message({ message: 'Rota não encontrada' });
+        this.router.navigate(['/rotas']);
+      }
+
+      const [, hour] = this.moment
+        .formatISODateString(route.departureDate)
+        .split(' ');
+
+      this.filterLocations(route.origin);
+
+      const routerInfo = {
+        origin: route.origin,
+        destiny: route.destiny,
+        departureDate: route.departureDate,
+        departureTime: hour,
+        durationEstimated: route.durationEstimated,
+        arriveDate: this.moment.formatISODateString(route.arriveDate),
+      };
+
+      this.routerForm.patchValue(routerInfo);
+    } catch (error) {}
+  }
+
   statusBtn(event: boolean): boolean {
     if (this.isEdit) {
       return (this.btnIsDisabled =
         !event &&
-        !!this.routerForm?.value?.name &&
-        !!this.routerForm?.value?.email &&
-        !!this.routerForm?.value?.actualLocation &&
-        !!this.routerForm?.value?.role);
+        !!this.routerForm?.value?.origin &&
+        !!this.routerForm?.value?.destiny &&
+        !!this.routerForm?.value?.departureDate &&
+        !!this.routerForm?.value?.departureTime &&
+        !!this.routerForm?.value?.durationEstimated);
     }
 
     return (this.btnIsDisabled =
@@ -107,6 +143,8 @@ export class RouteformComponent implements OnInit {
   }
 
   filterLocations(event: any): void {
+    console.log(event, 'aqui');
+
     const locs = this.locations.then((res: any) =>
       res.filter((loc: any) => loc?.value !== event)
     );
@@ -149,7 +187,11 @@ export class RouteformComponent implements OnInit {
     };
 
     try {
-      await this.routeService.saveRoute(data);
+      if (!this.isEdit) {
+        await this.routeService.saveRoute(data);
+      } else {
+        await this.routeService.editRoute(this.routeId, data);
+      }
 
       this.notificationsService.message({
         message: `Rota ${this.isEdit ? 'editada' : 'salva'} com sucesso.`,
@@ -157,6 +199,8 @@ export class RouteformComponent implements OnInit {
 
       this.router.navigate(['/rotas']);
     } catch (error: any) {
+      console.log(error);
+
       const { statusCode, message } = error.error;
 
       if (statusCode === 409) {

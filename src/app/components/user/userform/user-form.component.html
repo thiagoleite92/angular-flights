@@ -42,23 +42,21 @@
     </div>
     <div class="form-field-row">
       <app-input
-        label="Localização Atual"
-        [required]="true"
-        [fieldReference]="getReference('actualLocation')"
-        [options]="locations"
-        [isAsyncSelect]="true"
-        (btnIsDisabled)="statusBtn($event)"
-        [editActualLocation]="editActualLocation"
-      ></app-input>
-      <app-input
         label="Tipo de Usuário"
         [required]="true"
         [fieldReference]="getReference('role')"
         [options]="userOptions"
         [isSelect]="true"
         (btnIsDisabled)="statusBtn($event)"
-        [editRole]="editRole"
         placeHolder="Tipo de Usuário"
+      ></app-input>
+      <app-input
+        label="Localização Atual"
+        [required]="true"
+        [fieldReference]="getReference('actualLocation')"
+        [options]="locations"
+        [isAsyncSelect]="true"
+        (btnIsDisabled)="statusBtn($event)"
       ></app-input>
     </div>
     <app-button
