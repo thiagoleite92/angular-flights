@@ -80,7 +80,7 @@ export class UserFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
+    this.route.params.subscribe(params => {
       const userId = params?.['userId'];
       if (!userId) {
         return;
@@ -98,7 +98,7 @@ export class UserFormComponent implements OnInit {
   }
 
   async getLocations() {
-    const locations = await this.locationService.get().then((response) => {
+    const locations = await this.locationService.get().then(response => {
       return response.map((loc: LocationResponseType) => ({
         label: `${loc.sigla} - ${loc.nome}`,
         value: `${loc.sigla} - ${loc.nome}`,
@@ -160,14 +160,30 @@ export class UserFormComponent implements OnInit {
     }
   }
 
-  statusBtn(event: any): boolean {
+  statusBtn(event: unknown): boolean {
+    let needLocation = false;
+
+    if (this.userForm?.value['role'] === 'ADMIN') {
+      needLocation = true;
+      this.userForm.controls['actualLocation'].reset();
+    }
+
+    if (
+      this.userForm?.value['role'] === 'PILOT' &&
+      this.userForm?.value['actualLocation']
+    ) {
+      needLocation = true;
+    }
+
+    console.log(needLocation);
+
     if (this.isEdit) {
       return (this.btnIsDisabled =
         !event &&
         !!this.userForm?.value?.name &&
         !!this.userForm?.value?.email &&
-        !!this.userForm?.value?.actualLocation &&
-        !!this.userForm?.value?.role);
+        !!this.userForm?.value?.role &&
+        needLocation);
     }
 
     return (this.btnIsDisabled =
@@ -176,17 +192,18 @@ export class UserFormComponent implements OnInit {
       !!this.userForm?.value?.email &&
       !!this.userForm?.value?.password &&
       !!this.userForm?.value?.confirmPassword &&
-      !!this.userForm?.value?.actualLocation &&
-      !!this.userForm?.value?.role);
+      !!this.userForm?.value?.role &&
+      needLocation);
   }
 
-  async fetchUserDetails(userId: string): Promise<any> {
+  async fetchUserDetails(userId: string): Promise<void> {
     try {
       const user = (await this.userService.getUsers(userId)) as OneUser;
 
       if (!user) {
         this.notificationService.message({ message: 'Usuário não encontrado' });
-        return this.router.navigateByUrl('/usuarios');
+        this.router.navigateByUrl('/usuarios');
+        return;
       }
 
       const userInfo = {
@@ -200,6 +217,12 @@ export class UserFormComponent implements OnInit {
 
       this.editActualLocation = userInfo.actualLocation ?? null;
       this.editRole = user.role === 'PILOT' ? 'PILOT' : 'ADMIN';
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  isPilotRegister(): boolean {
+    return this.userForm?.value['role'] === 'PILOT';
   }
 }

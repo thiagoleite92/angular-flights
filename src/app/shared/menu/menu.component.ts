@@ -13,23 +13,23 @@ import { AuthService } from '../../service/auth.service';
 })
 export class MenuComponent implements OnInit {
   public pageTitle?: string = '';
-  public buttonText: string = '';
-  public navigateUrl: string = '';
-  public urlActive: string = '';
-  public isAdmin: boolean = false;
+  public buttonText = '';
+  public navigateUrl = '';
+  public urlActive = '';
+  public isAdmin = false;
   public userInfo?: any;
   public showUserInfo = false;
 
   public routes = [
     ['/usuarios', 'Usuários'],
     ['/rotas', 'Rotas'],
-    ['/voos', 'Voos'],
+    ['/agendamentos', 'Agendamentos'],
   ];
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
-      map((result) => result.matches),
+      map(result => result.matches),
       shareReplay()
     );
 
@@ -43,8 +43,6 @@ export class MenuComponent implements OnInit {
     this.setNavigation(this.router.url);
     this.isAdmin = this.authService.isAdmin();
     this.userInfo = this.authService.getUserInfo();
-
-    console.log(this.userInfo);
   }
 
   setNavigation(pathname: string): void {

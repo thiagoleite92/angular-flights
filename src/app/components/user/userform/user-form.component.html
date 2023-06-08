@@ -7,16 +7,14 @@
         label="Nome"
         [required]="true"
         [isText]="true"
-        (btnIsDisabled)="statusBtn($event)"
-      ></app-input>
+        (btnIsDisabled)="statusBtn($event)"></app-input>
       <app-input
         errorMessage="E-mail inválido"
         [fieldReference]="getReference('email')"
         label="E-mail"
         [required]="true"
         [isText]="true"
-        (btnIsDisabled)="statusBtn($event)"
-      ></app-input>
+        (btnIsDisabled)="statusBtn($event)"></app-input>
     </div>
     <div class="form-field-row">
       <app-input
@@ -27,8 +25,7 @@
         [isText]="true"
         (btnIsDisabled)="statusBtn($event)"
         type="password"
-        *ngIf="!isEdit"
-      ></app-input>
+        *ngIf="!isEdit"></app-input>
       <app-input
         errorMessage="Senhas não coincidem"
         [fieldReference]="getReference('confirmPassword')"
@@ -37,8 +34,7 @@
         [isText]="true"
         (btnIsDisabled)="statusBtn($event)"
         type="password"
-        *ngIf="!isEdit"
-      ></app-input>
+        *ngIf="!isEdit"></app-input>
     </div>
     <div class="form-field-row">
       <app-input
@@ -48,8 +44,7 @@
         [options]="userOptions"
         [isSelect]="true"
         (btnIsDisabled)="statusBtn($event)"
-        placeHolder="Tipo de Usuário"
-      ></app-input>
+        placeHolder="Tipo de Usuário"></app-input>
       <app-input
         label="Localização Atual"
         [required]="true"
@@ -57,7 +52,7 @@
         [options]="locations"
         [isAsyncSelect]="true"
         (btnIsDisabled)="statusBtn($event)"
-      ></app-input>
+        [isDisabled]="!isPilotRegister()"></app-input>
     </div>
     <app-button
       class="btn-save"
@@ -65,7 +60,6 @@
       type="button"
       [isDisabled]="!btnIsDisabled"
       [isLoading]="isLoading"
-      (click)="saveUser()"
-    ></app-button>
+      (click)="saveUser()"></app-button>
   </form>
 </app-menu>

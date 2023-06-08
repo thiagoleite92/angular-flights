@@ -36,10 +36,10 @@ const routes: Routes = [
     component: RouteformComponent,
   },
   {
-    path: 'voos',
+    path: 'agendamentos',
     component: UserlistComponent,
   },
-  { path: 'voos/piloto/:pilotId', component: UserlistComponent },
+  { path: 'agendamentos/piloto/:pilotId', component: UserlistComponent },
 ];
 
 @NgModule({

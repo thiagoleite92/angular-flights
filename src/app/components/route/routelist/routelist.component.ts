@@ -1,10 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
 import { RouteService } from '../route.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../service/auth.service';
 import { NotificationService } from '../../../service/notification.service';
 import { UserInfo } from '../../../service/types/user-info.type';
 import { RouteResponse } from '../types/route-response.type';
+import { Component, OnInit } from '@angular/core';
+
+interface Item extends RouteResponse {
+  [key: string]: string;
+}
 
 @Component({
   selector: 'app-routelist',
@@ -13,12 +17,12 @@ import { RouteResponse } from '../types/route-response.type';
 })
 export class RoutelistComponent implements OnInit {
   public isAdmin = true;
-  public data?: any | [] = [];
+  public data?: Item[] | [];
   public columns?: string[];
   public showModal = false;
   public routeId = '';
   public userInfo: UserInfo | null = null;
-  public link: string = '';
+  public link = '';
 
   public dialogTitle = 'Essa ação é irreversível. Deseja continuar?';
 
@@ -36,7 +40,7 @@ export class RoutelistComponent implements OnInit {
       console.log(this.link, 'dentro do if');
       this.dialogTitle = 'Confirma agendamento da rota?';
       this.isAdmin = false;
-      this.link = `/voos/piloto/${this.userInfo?.id}`;
+      this.link = `/agendamentos/piloto/${this.userInfo?.id}`;
     }
     this.fetchRoutes();
   }
@@ -45,7 +49,7 @@ export class RoutelistComponent implements OnInit {
     try {
       this.data = await this.routeService.getRoutes();
 
-      if (!this.data.length) {
+      if (!this.data?.length) {
         this.columns = [];
         return;
       }
@@ -84,24 +88,25 @@ export class RoutelistComponent implements OnInit {
 
   async deleteRoute(): Promise<void> {
     try {
-      console.log('delete route');
       await this.routeService.deleteRoute(this.routeId);
       this.handleDeleteRoute(this.routeId);
       this.showModal = false;
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   handleDeleteRoute(routeId: string): void {
-    const routeIndex = this.data.findIndex(
-      (route: RouteResponse) => routeId === route.id
-    );
+    const routeIndex =
+      this.data?.findIndex((route: RouteResponse) => routeId === route['id']) ??
+      -1;
 
     if (routeIndex >= 0) {
-      this.data.splice(routeIndex, 1);
+      this.data?.splice(routeIndex, 1);
       this.notification.message({ message: 'Rota excluída.' });
     }
 
-    if (!this.data.length) {
+    if (!this.data?.length) {
       this.columns = [];
       this.data = [];
     }

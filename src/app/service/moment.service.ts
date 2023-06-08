@@ -5,7 +5,7 @@ import { CalcDate } from './types/calcDate.type';
 @Injectable()
 export class MomentService {
   getHourAndMinutes(hours: string) {
-    let time;
+    let time = null;
 
     if (hours.includes(':')) {
       hours = hours.replace(':', '');
@@ -38,9 +38,9 @@ export class MomentService {
   }
 
   setDateToISOString(arriveDate: string): string {
-    const [day, month, yearAndHour] = arriveDate?.split('/');
+    const [day, month, yearAndHour] = arriveDate.split('/');
 
-    const [year, hour] = yearAndHour?.split(' ');
+    const [year, hour] = yearAndHour.split(' ');
 
     return `${year}-${month}-${day}T${hour}:00.000Z`;
   }
@@ -59,7 +59,9 @@ export class MomentService {
     return this.setDateToISOString(date);
   }
 
-  formatISODateString(date: string): string {
+  formatISODateString(date: string | undefined): string {
+    if (!date) 'Data não encontrada';
+
     return moment(date).format('DD/MM/YYYY HH:mm');
   }
 }

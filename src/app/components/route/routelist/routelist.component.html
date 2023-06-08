@@ -1,6 +1,6 @@
 <app-menu>
   <div *ngIf="!columns" class="waiting">carregando</div>
-  <div *ngIf="columns && !data.length">
+  <div *ngIf="columns && !data?.length">
     <p>
       No momento não existem rotas.
       <span *ngIf="isAdmin">
@@ -29,44 +29,37 @@
               iconType="delete"
               color="warn"
               (click)="openModal(item['id'])"
-              *ngIf="item['Disponível'] === 'Sim'"
-            ></app-icon>
+              *ngIf="item['Disponível'] === 'Sim'"></app-icon>
             <app-icon
               iconType="edit"
               color="primary"
               (click)="handleEdit(item['id'])"
-              *ngIf="item['Disponível'] === 'Sim'"
-            ></app-icon>
+              *ngIf="item['Disponível'] === 'Sim'"></app-icon>
             <app-icon
               iconType="not_interested"
               color="warn"
               *ngIf="item['Disponível'] === 'Não'"
               title="Essa rota está agendada"
-              customClass="not-allowed"
-            ></app-icon>
+              customClass="not-allowed"></app-icon>
           </div>
 
           <div
             *ngIf="column === 'Aceitar' && !isAdmin && userInfo?.isAvailable"
-            class="container-actions"
-          >
+            class="container-actions">
             <app-icon
               iconType="calendar_today"
               color="primary"
-              (click)="openModal(item['id'])"
-            ></app-icon>
+              (click)="openModal(item['id'])"></app-icon>
           </div>
 
           <div
             *ngIf="column === 'Aceitar' && !isAdmin && !userInfo?.isAvailable"
-            class="container-actions"
-          >
+            class="container-actions">
             <app-icon
               iconType="not_interested"
               color="warn"
               title="Você já agendou uma rota"
-              customClass="not-allowed"
-            ></app-icon>
+              customClass="not-allowed"></app-icon>
           </div>
 
           <div *ngIf="column !== 'Ações'">
@@ -88,9 +81,8 @@
   </table>
 
   <p
-    *ngIf="!userInfo?.isAvailable && columns && data.length && !isAdmin"
-    class="alert-route"
-  >
+    *ngIf="!userInfo?.isAvailable && columns && data?.length && !isAdmin"
+    class="alert-route">
     Você já tem uma rota agendada.
     <a [href]="link" class="link-route">Clique aqui</a>
     para visualizar.
@@ -104,15 +96,13 @@
       <button
         *ngIf="isAdmin"
         (click)="deleteRoute()"
-        class="dialog-btn btn-keep"
-      >
+        class="dialog-btn btn-keep">
         Sim
       </button>
       <button
         *ngIf="!isAdmin"
         (click)="confirmSchedule()"
-        class="dialog-btn btn-keep"
-      >
+        class="dialog-btn btn-keep">
         Sim
       </button>
     </div>

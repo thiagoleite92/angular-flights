@@ -16,7 +16,7 @@ export class RouteService extends HttpService {
     super(_http);
   }
 
-  async deleteRoute(routeId: string): Promise<any> {
+  async deleteRoute(routeId: string): Promise<{ message: string }> {
     return this.delete(this.routeUrl, routeId);
   }
 
@@ -25,19 +25,19 @@ export class RouteService extends HttpService {
     return;
   }
 
-  async saveRoute(data: SaveRoute): Promise<any> {
+  async saveRoute(data: SaveRoute): Promise<{ message: string }> {
     return this.post(this.routeUrl, data);
   }
 
-  async getRoutes(
-    userId?: string
-  ): Promise<RouteResponse[] | SingleRouteResponse | []> {
-    return userId
-      ? this.get(`${this.routeUrl}/${userId ?? ''}`)
-      : this.get(`${this.routeUrl}`);
+  async getRoutes(): Promise<RouteResponse[]> {
+    return this.get(`${this.routeUrl}`);
   }
 
   async editRoute(routeId: string, data: SaveRoute): Promise<void> {
     return this.patch(`${this.routeUrl}/${routeId}`, data);
+  }
+
+  async getRouteById(routeId: string): Promise<SingleRouteResponse | null> {
+    return this.get(`${this.routeUrl}/${routeId}`);
   }
 }

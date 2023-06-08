@@ -61,7 +61,7 @@ export class RouteformComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
+    this.route.params.subscribe(params => {
       const routeId = params?.['routeId'];
       if (!routeId) {
         return;
@@ -79,9 +79,7 @@ export class RouteformComponent implements OnInit {
 
   async fetchRouteDetails(routeId: string): Promise<void> {
     try {
-      const route = (await this.routeService.getRoutes(
-        routeId
-      )) as SingleRouteResponse;
+      const route = await this.routeService.getRouteById(routeId);
 
       if (!route) {
         this.notificationsService.message({ message: 'Rota não encontrada' });
@@ -89,22 +87,24 @@ export class RouteformComponent implements OnInit {
       }
 
       const [, hour] = this.moment
-        .formatISODateString(route.departureDate)
+        .formatISODateString(route?.departureDate)
         .split(' ');
 
-      this.filterLocations(route.origin);
+      this.filterLocations(route?.origin);
 
       const routerInfo = {
-        origin: route.origin,
-        destiny: route.destiny,
-        departureDate: route.departureDate,
+        origin: route?.origin,
+        destiny: route?.destiny,
+        departureDate: route?.departureDate,
         departureTime: hour,
-        durationEstimated: route.durationEstimated,
-        arriveDate: this.moment.formatISODateString(route.arriveDate),
+        durationEstimated: route?.durationEstimated,
+        arriveDate: this.moment.formatISODateString(route?.arriveDate),
       };
 
       this.routerForm.patchValue(routerInfo);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   statusBtn(event: boolean): boolean {
@@ -132,7 +132,7 @@ export class RouteformComponent implements OnInit {
   }
 
   async getLocations() {
-    const locations = await this.locationService.get().then((response) => {
+    const locations = await this.locationService.get().then(response => {
       return response.map((loc: LocationResponseType) => ({
         label: `${loc.sigla} - ${loc.nome}`,
         value: `${loc.sigla} - ${loc.nome}`,
