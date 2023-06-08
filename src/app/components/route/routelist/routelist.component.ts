@@ -130,4 +130,13 @@ export class RoutelistComponent implements OnInit {
   createRouteNavegate(): void {
     this.router.navigateByUrl(`/rotas/registrar`);
   }
+
+  isPilotAvaiable(): boolean {
+    return (
+      !this.userInfo?.isAvailable &&
+      !!this.columns &&
+      !!this.data?.length &&
+      !this.isAdmin
+    );
+  }
 }

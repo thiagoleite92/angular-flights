@@ -80,9 +80,7 @@
     </tfoot>
   </table>
 
-  <p
-    *ngIf="!userInfo?.isAvailable && columns && data?.length && !isAdmin"
-    class="alert-route">
+  <p *ngIf="isPilotAvaiable()" class="alert-route">
     Você já tem uma rota agendada.
     <a [href]="link" class="link-route">Clique aqui</a>
     para visualizar.

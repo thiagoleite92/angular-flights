@@ -5,8 +5,7 @@
     fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false"
-  >
+    [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
 
     <mat-nav-list>
@@ -26,8 +25,7 @@
         aria-label="Toggle sidenav"
         mat-icon-button
         (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async"
-      >
+        *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>flights-angular</span>
@@ -45,7 +43,7 @@
             Local atual: {{ userInfo?.actualLocation }}
           </span>
           <span *ngIf="!isAdmin">
-            Disponível: {{ userInfo?.isAvailable ? "Sim" : "Não" }}
+            Disponível: {{ userInfo?.isAvailable ? 'Sim' : 'Não' }}
           </span>
         </div>
       </div>
@@ -62,8 +60,7 @@
         *ngIf="isAdmin && (pageTitle === 'Usuarios' || pageTitle === 'Rotas')"
         [text]="buttonText"
         [isDisabled]="false"
-        (click)="navigateTo()"
-      ></app-button>
+        (click)="navigateTo()"></app-button>
     </div>
 
     <main class="main-container">

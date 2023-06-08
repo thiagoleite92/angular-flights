@@ -3,7 +3,7 @@ export type UserInfo = {
   email: string;
   name: string;
   role: 'ADMIN' | 'PILOT';
-  isAvailable?: boolean;
-  flightExp?: number;
-  actualLocation?: string;
+  isAvailable: boolean;
+  flightExp: number;
+  actualLocation: string;
 };

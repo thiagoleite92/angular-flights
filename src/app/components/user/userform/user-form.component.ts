@@ -175,8 +175,6 @@ export class UserFormComponent implements OnInit {
       needLocation = true;
     }
 
-    console.log(needLocation);
-
     if (this.isEdit) {
       return (this.btnIsDisabled =
         !event &&
