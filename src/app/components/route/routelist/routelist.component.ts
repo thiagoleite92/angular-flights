@@ -34,7 +34,9 @@ export class RoutelistComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userInfo = this.authService.getUserInfo() as UserInfo;
+    this.authService.currentUser.subscribe(
+      user => (this.userInfo = user as UserInfo)
+    );
 
     if (this.userInfo?.role === 'PILOT') {
       console.log(this.link, 'dentro do if');
@@ -112,9 +114,25 @@ export class RoutelistComponent implements OnInit {
     }
   }
 
+  updateUserAvailability() {
+    const user = {
+      ...this.userInfo,
+      isAvailable: false,
+    } as UserInfo;
+
+    localStorage.setItem('user', JSON.stringify(user));
+
+    this.authService.updateUser(user);
+  }
+
   async confirmSchedule(): Promise<void> {
     try {
       await this.routeService.saveFlight(this.routeId);
+      this.updateUserAvailability();
+      this.notification.message({
+        message: 'Rota agendada com sucesso',
+      });
+      this.showModal = false;
     } catch (error: any) {
       const { statusCode, message } = error.error;
 

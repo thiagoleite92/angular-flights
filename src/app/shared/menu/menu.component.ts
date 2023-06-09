@@ -42,7 +42,8 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.setNavigation(this.router.url);
     this.isAdmin = this.authService.isAdmin();
-    this.userInfo = this.authService.getUserInfo();
+    this.authService.updateUser(this.authService.getUserInfo());
+    this.authService.currentUser.subscribe(user => (this.userInfo = user));
   }
 
   setNavigation(pathname: string): void {
