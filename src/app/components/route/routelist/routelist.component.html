@@ -47,9 +47,16 @@
             *ngIf="column === 'Aceitar' && !isAdmin && userInfo?.isAvailable"
             class="container-actions">
             <app-icon
+              *ngIf="item['Disponível'] === 'Sim'"
               iconType="calendar_today"
               color="primary"
               (click)="openModal(item['id'])"></app-icon>
+            <app-icon
+              iconType="not_interested"
+              color="warn"
+              *ngIf="item['Disponível'] === 'Não'"
+              title="Essa rota está agendada"
+              customClass="not-allowed"></app-icon>
           </div>
 
           <div

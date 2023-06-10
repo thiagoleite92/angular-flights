@@ -62,8 +62,6 @@ export class AuthService extends HttpService {
   getUserInfo(): UserInfo {
     const user = JSON.parse(localStorage.getItem('user') ?? '');
 
-    console.log(user);
-
     return user
       ? (this.userInfo = user)
       : (this.userInfo = {

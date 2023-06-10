@@ -1,0 +1,40 @@
+.flight-main-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 95%;
+  grid-gap: 20px 50px;
+
+  .flight-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(7, 18, 177, 0.2);
+    box-shadow: 1px 1px 1px rgb(110, 110, 235);
+    border-radius: 4px;
+    padding: 10px;
+    gap: 16px;
+    cursor: pointer;
+
+    &.booked {
+      border: 1px solid rgba(7, 177, 27, 0.2);
+      box-shadow: 1px 1px 1px rgb(110, 235, 143);
+      border-radius: 4px;
+      background-color: rgba(7, 177, 27, 0.2);
+    }
+
+    &.canceled {
+      border: 1px solid rgba(177, 7, 7, 0.2);
+      box-shadow: 1px 1px 1px rgba(177, 7, 7);
+      border-radius: 4px;
+      background-color: rgba(177, 7, 7, 0.2);
+    }
+
+    &.done {
+      border: 1px solid rgba(7, 18, 177, 0.2);
+      box-shadow: 1px 1px 1px rgb(110, 110, 235);
+      border-radius: 4px;
+      background-color: rgba(7, 18, 177, 0.2);
+    }
+  }
+}

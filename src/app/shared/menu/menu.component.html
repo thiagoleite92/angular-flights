@@ -29,11 +29,11 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>flights-angular</span>
-      <div class="user-info-container">
-        <app-icon
-          (click)="setUserInfo()"
-          iconType="person"
-          customClass="white-icon"
+      <div
+        class="user-info-container"
+        (mouseover)="showUserInfo = true"
+        (mouseout)="showUserInfo = false">
+        <app-icon iconType="person" customClass="white-icon"
           ><span class="content-text">Minhas informações</span></app-icon
         >
         <div *ngIf="showUserInfo" class="info-container">

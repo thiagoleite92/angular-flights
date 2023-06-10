@@ -10,6 +10,7 @@ export class ButtonComponent {
   @Input() type = 'button';
   @Input() isDisabled?: boolean;
   @Input() isLoading = false;
+  @Input() customClass?: string = '';
 
   public hide = true;
 }

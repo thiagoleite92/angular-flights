@@ -64,4 +64,8 @@ export class MomentService {
 
     return moment(date).format('DD/MM/YYYY HH:mm');
   }
+
+  checkUpdate(creationDate: string, updateDate: string): boolean {
+    return moment(updateDate).isAfter(creationDate);
+  }
 }

@@ -9,6 +9,9 @@ import { UserlistComponent } from './user/userlist/userlist.component';
 import { RouteService } from './route/route.service';
 import { RoutelistComponent } from './route/routelist/routelist.component';
 import { RouteformComponent } from './route/routeform/routeform.component';
+import { FlightCardComponent } from './flight/flight-card/flight-card.component';
+import { FlightBooksComponent } from './flight/flight-books/flight-books.component';
+import { FlightService } from './flight/flight.service';
 
 @NgModule({
   declarations: [
@@ -16,8 +19,10 @@ import { RouteformComponent } from './route/routeform/routeform.component';
     UserlistComponent,
     RoutelistComponent,
     RouteformComponent,
+    FlightCardComponent,
+    FlightBooksComponent,
   ],
   imports: [CommonModule, SharedModule, ServiceModule],
-  providers: [UserService, RouteService],
+  providers: [UserService, RouteService, FlightService],
 })
 export class ComponentModule {}

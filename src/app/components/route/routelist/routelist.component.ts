@@ -39,7 +39,6 @@ export class RoutelistComponent implements OnInit {
     );
 
     if (this.userInfo?.role === 'PILOT') {
-      console.log(this.link, 'dentro do if');
       this.dialogTitle = 'Confirma agendamento da rota?';
       this.isAdmin = false;
       this.link = `/agendamentos/piloto/${this.userInfo?.id}`;
@@ -50,6 +49,8 @@ export class RoutelistComponent implements OnInit {
   async fetchRoutes(): Promise<void> {
     try {
       this.data = await this.routeService.getRoutes();
+
+      console.log(this.data);
 
       if (!this.data?.length) {
         this.columns = [];

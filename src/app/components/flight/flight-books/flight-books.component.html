@@ -1,0 +1,26 @@
+<app-menu>
+  <main class="flight-main-container">
+    <div
+      *ngFor="let flight of flights"
+      class="flight-container"
+      [ngClass]="{
+        booked: flight.flightStatus === 'BOOKED',
+        canceled: flight.flightStatus === 'CANCELED',
+        done: flight.flightStatus === 'DONE'
+      }">
+      <strong>Status: {{ flightStatus(flight.flightStatus) }}</strong>
+      <span>Agendado: {{ formatDate(flight.createdAt) }}</span>
+      <span *ngIf="hasUpdate(flight)"
+        >Atualizada: {{ formatDate(flight.updatedAt) }}</span
+      >
+      <span *ngIf="isDeleted(flight)"
+        >Cancelada: {{ formatDate(flight.deletedAt) }}</span
+      >
+      <app-button
+        class="btn-view-details"
+        text="Visualizar Detalhes"
+        customClass="btn-view-flight-details"
+        [isDisabled]="false"></app-button>
+    </div>
+  </main>
+</app-menu>
