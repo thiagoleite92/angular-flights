@@ -10,8 +10,8 @@ export class HttpService {
   public patch(url: string, body: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.patch(`${this.mountUrl(url)}`, body).subscribe({
-        next: (v) => resolve(v),
-        error: (e) => reject(e),
+        next: v => resolve(v),
+        error: e => reject(e),
       });
     });
   }
@@ -19,26 +19,26 @@ export class HttpService {
   public post(url: string, body: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.post(this.mountUrl(url), body).subscribe({
-        next: (v) => resolve(v),
-        error: (e) => reject(e),
+        next: v => resolve(v),
+        error: e => reject(e),
       });
     });
   }
 
-  public get(url: string, userId?: string): Promise<any> {
+  public get(url: string, id?: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(this.mountUrl(`${url}/${userId ?? ''}`)).subscribe({
-        next: (v) => resolve(v),
-        error: (e) => reject(e),
+      this.http.get(this.mountUrl(`${url}/${id ?? ''}`)).subscribe({
+        next: v => resolve(v),
+        error: e => reject(e),
       });
     });
   }
 
-  public delete(url: string, userId: string): Promise<any> {
+  public delete(url: string, id: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.delete(this.mountUrl(`${url}/${userId}`)).subscribe({
-        next: (v) => resolve(v),
-        error: (e) => reject(e),
+      this.http.delete(this.mountUrl(`${url}/${id}`)).subscribe({
+        next: v => resolve(v),
+        error: e => reject(e),
       });
     });
   }

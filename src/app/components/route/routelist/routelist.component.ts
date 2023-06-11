@@ -142,6 +142,16 @@ export class RoutelistComponent implements OnInit {
           message,
         });
         this.showModal = false;
+
+        return;
+      }
+
+      if (statusCode === 409) {
+        this.notification.message({
+          message: message + ' Consulte a Administração',
+        });
+        this.showModal = false;
+        return;
       }
     }
   }

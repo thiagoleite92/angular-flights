@@ -14,4 +14,10 @@ export class FlightService extends HttpService {
   async getFlights(): Promise<Flight[]> {
     return await this.get(this.flightURL);
   }
+
+  async deleteFlight(flightId: string): Promise<void> {
+    await this.delete(this.flightURL, flightId);
+
+    return;
+  }
 }
