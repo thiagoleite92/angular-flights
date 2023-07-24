@@ -1,0 +1,7 @@
+{
+  "/api/*": {
+    "target": "https://nestjs-flights.vercel.app/",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}
