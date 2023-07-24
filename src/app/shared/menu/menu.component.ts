@@ -87,6 +87,14 @@ export class MenuComponent implements OnInit {
 
       return;
     }
+
+    if (pathname.includes('/agendamentos')) {
+      this.pageTitle = nameCapitalized;
+      this.navigateUrl = `/${name}`;
+      this.buttonText = 'Voltar';
+
+      return;
+    }
   }
 
   navigateTo(): void {

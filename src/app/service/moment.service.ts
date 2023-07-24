@@ -65,7 +65,14 @@ export class MomentService {
     return moment(date).format('DD/MM/YYYY HH:mm');
   }
 
-  checkUpdate(creationDate: string, updateDate: string): boolean {
+  checkUpdate(
+    creationDate: string | undefined,
+    updateDate: string | undefined
+  ): boolean {
+    console.log(updateDate, 'aqui');
+
+    if (!updateDate) return false;
+
     return moment(updateDate).isAfter(creationDate);
   }
 }

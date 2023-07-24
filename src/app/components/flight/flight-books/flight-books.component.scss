@@ -1,10 +1,9 @@
 .flight-main-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 300px 300px 300px;
+  grid-template-rows: 1fr 1fr 1fr;
   width: 95%;
   grid-gap: 10px 10px;
-  overflow-y: auto;
 
   .flight-container {
     position: relative;
@@ -16,6 +15,11 @@
     padding: 10px;
     gap: 16px;
     cursor: pointer;
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
 
     &.booked {
       border: 1px solid rgba(7, 177, 27, 0.2);

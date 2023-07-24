@@ -4,7 +4,7 @@ import { UserFormComponent } from '../components/user/userform/user-form.compone
 import { UserlistComponent } from '../components/user/userlist/userlist.component';
 import { RoutelistComponent } from '../components/route/routelist/routelist.component';
 import { RouteformComponent } from '../components/route/routeform/routeform.component';
-import { FlightCardComponent } from '../components/flight/flight-card/flight-card.component';
+import { FlightDetailsComponent } from '../components/flight/flight-details/flight-details.component';
 import { FlightBooksComponent } from '../components/flight/flight-books/flight-books.component';
 
 const routes: Routes = [
@@ -41,7 +41,7 @@ const routes: Routes = [
     path: 'agendamentos',
     component: FlightBooksComponent,
   },
-  { path: 'agendamentos/piloto/:pilotId', component: FlightCardComponent },
+  { path: 'agendamentos/:flightId', component: FlightDetailsComponent },
 ];
 
 @NgModule({

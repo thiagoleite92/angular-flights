@@ -16,7 +16,9 @@
       <span *ngIf="isDeleted(flight)"
         >Cancelada: {{ formatDate(flight.deletedAt) }}</span
       >
-      <button class="btn-view-details">Visualizar Detalhes</button>
+      <a [href]="viewDetails(flight)" target="_blank" class="btn-view-details"
+        >Visualizar Detalhes</a
+      >
 
       <div class="current-flight" *ngIf="showDeleteIcon(flight)">
         <app-icon iconType="delete_outline" (click)="openModal(flight.id)">

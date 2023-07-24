@@ -1,0 +1,20 @@
+.main-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+  width: 100%;
+  margin: 0 10px;
+  text-align: center;
+  h3 {
+    font-weight: normal;
+  }
+
+  .sub-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #423232;
+    border-radius: 4px;
+    padding-bottom: 10px;
+  }
+}

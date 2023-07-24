@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { HttpClient } from '@angular/common/http';
 import { SaveRoute } from './types/route-save.type';
@@ -12,8 +12,8 @@ export class RouteService extends HttpService {
   private routeUrl = '/route';
   private flightUrl = '/flight';
 
-  constructor(protected _http: HttpClient) {
-    super(_http);
+  constructor(protected _http: HttpClient, @Inject('URL_API') _apiUrl: string) {
+    super(_http, _apiUrl);
   }
 
   async deleteRoute(routeId: string): Promise<{ message: string }> {
