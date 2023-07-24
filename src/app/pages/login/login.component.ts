@@ -78,4 +78,8 @@ export class LoginComponent implements OnInit {
     return (this.btnIsDisabled =
       !event && !!this.form?.value?.login && !!this.form?.value?.password);
   }
+
+  async hello(): Promise<void> {
+    await this.authService.get('/hello');
+  }
 }

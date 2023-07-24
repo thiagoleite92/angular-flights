@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Inject, Injectable, OnInit } from '@angular/core';
 import { HttpService } from './http.service';
 import { HttpClient } from '@angular/common/http';
 import { LoginResponse } from './types/login-response.type';
@@ -22,8 +22,12 @@ export class AuthService extends HttpService {
 
   currentUser = this.user.asObservable();
 
-  constructor(protected _http: HttpClient, private router: Router) {
-    super(_http);
+  constructor(
+    protected _http: HttpClient,
+    @Inject('URL_API') _apiUrl: string,
+    private router: Router
+  ) {
+    super(_http, _apiUrl);
   }
 
   updateUser(user: UserInfo): void {

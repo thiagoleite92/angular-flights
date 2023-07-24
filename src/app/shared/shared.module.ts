@@ -26,6 +26,7 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgxMaskModule } from 'ngx-mask';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { NgxMaskModule } from 'ngx-mask';
     MatNativeDateModule,
     MatDatepickerModule,
     MatDialogModule,
+    MatPaginatorModule,
     NgxMaskModule.forRoot(),
   ],
   exports: [

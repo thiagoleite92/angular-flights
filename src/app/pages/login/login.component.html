@@ -10,8 +10,7 @@
       errorMessage="E-mail inválido"
       [required]="true"
       (btnIsDisabled)="statusBtn($event)"
-      [isText]="true"
-    ></app-input>
+      [isText]="true"></app-input>
 
     <app-input
       label="Senha"
@@ -21,17 +20,16 @@
       [required]="true"
       (keyup.enter)="handleLogin()"
       (btnIsDisabled)="statusBtn($event)"
-      [isText]="true"
-    ></app-input>
+      [isText]="true"></app-input>
 
     <app-button
       type="button"
       text="Logar"
       (click)="handleLogin()"
       [isDisabled]="!btnIsDisabled"
-      [isLoading]="isLoading"
-    >
+      [isLoading]="isLoading">
     </app-button>
   </form>
   <div class="bottom-lane"></div>
+  <button (click)="hello()">hello</button>
 </div>

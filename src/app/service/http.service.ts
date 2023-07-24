@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 
 @Injectable()
 export class HttpService {
-  private baseURL = 'http://localhost:5200/api';
-
-  constructor(protected http: HttpClient) {}
+  constructor(
+    protected http: HttpClient,
+    @Inject('URL_API') private apiUrl: string
+  ) {}
 
   public patch(url: string, body: any): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -34,6 +35,15 @@ export class HttpService {
     });
   }
 
+  public getWithQuery(url: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.mountUrl(`${url}`)).subscribe({
+        next: v => resolve(v),
+        error: e => reject(e),
+      });
+    });
+  }
+
   public delete(url: string, id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.delete(this.mountUrl(`${url}/${id}`)).subscribe({
@@ -44,6 +54,6 @@ export class HttpService {
   }
 
   private mountUrl(endpoint: string): string {
-    return `${this.baseURL}${endpoint}`;
+    return `${this.apiUrl}${endpoint}`;
   }
 }

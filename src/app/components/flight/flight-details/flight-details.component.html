@@ -1,0 +1,51 @@
+<app-menu>
+  <main class="main-container" *ngIf="flightDetails">
+    <div class="sub-container">
+      <h3>Rota</h3>
+      <span><strong>Origem:</strong> {{ flightDetails?.route?.origin }}</span>
+      <span><strong>Destino:</strong> {{ flightDetails?.route?.destiny }}</span>
+      <span
+        ><strong>Data de partida:</strong>
+        {{ formatDate(flightDetails?.route?.departureDate) }}</span
+      >
+      <span
+        ><strong>Data de chegada:</strong>
+        {{ formatDate(flightDetails?.route?.arriveDate) }}</span
+      >
+      <span
+        ><strong>Duração Estimada:</strong>
+        {{ flightDetails?.route?.durationEstimated }} horas</span
+      >
+    </div>
+
+    <div class="sub-container">
+      <h3>Piloto</h3>
+      <span><strong>Nome:</strong> {{ flightDetails?.user?.name }}</span>
+      <span><strong>email:</strong> {{ flightDetails?.user?.email }}</span>
+      <span
+        ><strong>Localização Atual:</strong>
+        {{ flightDetails?.user?.actualLocation }}</span
+      >
+      <span
+        ><strong>Experiência:</strong>
+        {{ flightDetails?.user?.flightExp }}</span
+      >
+      <span
+        ><strong>Ativo na plataforma desde:</strong>
+        {{ formatDate(flightDetails?.user?.createdAt) }}</span
+      >
+    </div>
+
+    <div class="sub-container">
+      <h3>Agendado</h3>
+      <strong>Status: {{ flightStatus(flightDetails?.flightStatus) }}</strong>
+      <span>Agendado: {{ formatDate(flightDetails?.createdAt) }}</span>
+      <span *ngIf="hasUpdate(flightDetails)"
+        >Atualizada: {{ formatDate(flightDetails?.updatedAt) }}</span
+      >
+      <span *ngIf="isDeleted(flightDetails)"
+        >Cancelada: {{ formatDate(flightDetails?.deletedAt) }}</span
+      >
+    </div>
+  </main>
+</app-menu>

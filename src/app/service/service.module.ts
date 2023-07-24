@@ -8,6 +8,7 @@ import { LocationService } from './location.service';
 import { RequestInterceptor } from './request-interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MomentService } from './moment.service';
+import { environment } from '../../environments/environment';
 
 @NgModule({
   declarations: [],
@@ -23,6 +24,10 @@ import { MomentService } from './moment.service';
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
       multi: true,
+    },
+    {
+      provide: 'URL_API',
+      useValue: environment.urlApi,
     },
     MomentService,
   ],

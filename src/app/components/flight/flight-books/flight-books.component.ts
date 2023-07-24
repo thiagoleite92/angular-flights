@@ -16,7 +16,6 @@ export class FlightBooksComponent implements OnInit {
   userInfo?: UserInfo;
   showDeleteFlight = false;
   scheduleId = '';
-  iconType = 'delete_outline';
 
   constructor(
     private authService: AuthService,
@@ -27,12 +26,14 @@ export class FlightBooksComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchFlights();
+    this.authService.currentUser.subscribe(
+      user => (this.userInfo = user as UserInfo)
+    );
   }
 
   async fetchFlights(): Promise<void> {
-    this.flights = await this.flightService.getFlights();
-    this.authService.currentUser.subscribe(
-      user => (this.userInfo = user as UserInfo)
+    this.flights = await this.flightService.getFlights(
+      new URLSearchParams({ take: '', skip: '' })
     );
   }
 
@@ -109,5 +110,9 @@ export class FlightBooksComponent implements OnInit {
     localStorage.setItem('user', JSON.stringify(user));
 
     this.authService.updateUser(user);
+  }
+
+  viewDetails(flight: Flight): string {
+    return `/agendamentos/${flight.id}/`;
   }
 }
