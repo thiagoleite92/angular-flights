@@ -1,0 +1,151 @@
+<!-- input text -->
+
+<mat-form-field
+  *ngIf="isText"
+  [ngClass]="{ invalid: isInvalid(fieldReference!) }"
+>
+  <mat-label>{{ label }}</mat-label>
+  <input
+    matInput
+    [type]="type === 'password' && hide ? 'password' : 'text'"
+    [placeholder]="placeholder"
+    [ngModel]="fieldReference?.value"
+    (ngModelChange)="onChange($event)"
+    [required]="required"
+    [disabled]="isDisabled"
+    [mask]="mask"
+    [suffix]="suffix"
+  />
+  <button
+    *ngIf="type === 'password'"
+    type="button"
+    mat-icon-button
+    matSuffix
+    (click)="hide = !hide"
+    [attr.aria-label]="'Hide password'"
+    [attr.aria-pressed]="hide"
+  >
+    <mat-icon class="eye-color">{{
+      hide ? "visibility_off" : "visibility"
+    }}</mat-icon>
+  </button>
+
+  <mat-hint *ngIf="isInvalid(fieldReference!)">
+    <div *ngIf="fieldReference?.hasError('required')">Campo obrigatório</div>
+
+    <div *ngIf="fieldReference?.hasError('email')">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="fieldReference?.hasError('passwordStrong')">
+      Precisa conter ao menos: <br />
+      1 número<br />
+      1 letra maiúscula<br />
+      1 letra minúscula<br />
+      e um caracter especial.
+    </div>
+
+    <div *ngIf="fieldReference?.hasError('passwordMatch')">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="fieldReference?.hasError('invalidDuration')">
+      Duração mínima 30 minutos
+    </div>
+  </mat-hint>
+</mat-form-field>
+
+<!-- async select -->
+
+<mat-form-field
+  *ngIf="isAsyncSelect"
+  [ngClass]="{ invalid: isInvalid(fieldReference!) }"
+>
+  <mat-label>{{ label }}</mat-label>
+  <mat-select
+    [required]="required"
+    [ngModel]="fieldReference?.value"
+    (ngModelChange)="onChange($event)"
+    [placeholder]="placeholder"
+    [disabled]="isDisabled"
+  >
+    <mat-option *ngFor="let opt of options | async" [value]="opt.value">
+      {{ opt.label }}
+    </mat-option>
+  </mat-select>
+
+  <mat-hint *ngIf="isInvalid(fieldReference!)">
+    <div *ngIf="fieldReference?.hasError('required')">Campo obrigatório</div>
+  </mat-hint>
+</mat-form-field>
+
+<!-- sync select -->
+
+<mat-form-field
+  *ngIf="isSelect"
+  [ngClass]="{ invalid: isInvalid(fieldReference!) }"
+>
+  <mat-label>{{ label }}</mat-label>
+  <mat-select
+    [required]="required"
+    [ngModel]="fieldReference?.value"
+    (ngModelChange)="onChange($event)"
+    [placeholder]="placeholder"
+    [disabled]="isDisabled"
+  >
+    <mat-option *ngFor="let opt of options" [value]="opt.value">
+      {{ opt.label }}
+    </mat-option>
+  </mat-select>
+
+  <mat-hint *ngIf="isInvalid(fieldReference!)">
+    <div *ngIf="fieldReference?.hasError('required')">Campo obrigatório</div>
+  </mat-hint>
+</mat-form-field>
+
+<!-- Date Picker -->
+
+<mat-form-field
+  *ngIf="isDatePicker"
+  [ngClass]="{ invalid: isInvalid(fieldReference!) }"
+>
+  <mat-label>{{ label }}</mat-label>
+  <input
+    matInput
+    [required]="required"
+    #locale
+    locale="pt-br"
+    [matDatepicker]="picker"
+    [ngModel]="fieldReference?.value"
+    (ngModelChange)="onChange($event)"
+    [disabled]="isDisabled"
+    [min]="todayDate"
+    [placeholder]="placeholder"
+  />
+  <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+<!-- Time -->
+
+<mat-form-field
+  *ngIf="isTime"
+  [ngClass]="{ invalid: isInvalid(fieldReference!) }"
+>
+  <mat-label>{{ label }}</mat-label>
+  <input
+    [required]="required"
+    [type]="type"
+    matInput
+    #time
+    [ngModel]="fieldReference?.value"
+    (ngModelChange)="onChange($event)"
+    [placeholder]="placeholder"
+    [disabled]="isDisabled"
+  />
+  <mat-hint *ngIf="isInvalid(fieldReference!)">
+    <div *ngIf="fieldReference?.hasError('required')">Campo obrigatório</div>
+    <div *ngIf="fieldReference?.hasError('invalidHour')">Hora inválida</div>
+  </mat-hint>
+</mat-form-field>

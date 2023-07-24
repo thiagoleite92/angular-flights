@@ -1,0 +1,27 @@
+form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 25px;
+  gap: 10px;
+
+  .form-field-row {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 25px;
+    flex-wrap: wrap;
+  }
+
+  .btn-save {
+    align-self: flex-end;
+  }
+
+  @media (max-width: 716px) {
+    .btn-save {
+      align-self: center;
+    }
+  }
+}
+
+.teste {
+  color: black;
+}

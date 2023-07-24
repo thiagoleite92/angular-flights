@@ -1,0 +1,61 @@
+<app-menu>
+  <div *ngIf="!columns" class="waiting">carregando</div>
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let column of columns">
+          {{ column }}
+        </th>
+      </tr>
+    </thead>
+
+    <tbody class="tbody">
+      <tr *ngFor="let item of data" class="tbody-tr">
+        <td *ngFor="let column of columns" class="tbody-td">
+          <div *ngIf="column === 'Ações' && isAdmin" class="container-actions">
+            <app-icon
+              iconType="delete"
+              color="warn"
+              (click)="openModal(item['id'])"
+            ></app-icon>
+            <app-icon
+              iconType="edit"
+              color="primary"
+              (click)="handleEdit(item['id'])"
+            ></app-icon>
+          </div>
+
+          <div *ngIf="column !== 'Ações'">
+            <span *ngIf="column !== 'Status'">
+              {{ item[column] }}
+            </span>
+            <app-toggle
+              (handleChange)="updateStatus(item['id'], item['Status'])"
+              [checked]="item['Status']"
+              [id]="item['id']"
+              *ngIf="column === 'Status'"
+            >
+            </app-toggle>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <td *ngFor="let column of columns">
+          {{ column }}
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</app-menu>
+<app-dialog *ngIf="showModal">
+  <div class="dialog-content">
+    <h5>Essa ação é irreversível. Deseja continuar?</h5>
+    <div class="btn-container">
+      <button (click)="closeModal()" class="dialog-btn btn-cancel">Não</button>
+      <button (click)="deleteUser()" class="dialog-btn btn-keep">Sim</button>
+    </div>
+  </div>
+</app-dialog>

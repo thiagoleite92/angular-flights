@@ -1,0 +1,65 @@
+<app-menu>
+  <form>
+    <div class="form-field-row">
+      <app-input
+        errorMessage="Nome é obrigatório"
+        [fieldReference]="getReference('name')"
+        label="Nome"
+        [required]="true"
+        [isText]="true"
+        (btnIsDisabled)="statusBtn($event)"></app-input>
+      <app-input
+        errorMessage="E-mail inválido"
+        [fieldReference]="getReference('email')"
+        label="E-mail"
+        [required]="true"
+        [isText]="true"
+        (btnIsDisabled)="statusBtn($event)"></app-input>
+    </div>
+    <div class="form-field-row">
+      <app-input
+        errorMessage="Senha é obrigatória"
+        [fieldReference]="getReference('password')"
+        label="Senha"
+        [required]="true"
+        [isText]="true"
+        (btnIsDisabled)="statusBtn($event)"
+        type="password"
+        *ngIf="!isEdit"></app-input>
+      <app-input
+        errorMessage="Senhas não coincidem"
+        [fieldReference]="getReference('confirmPassword')"
+        label="Confirmar Senha"
+        [required]="true"
+        [isText]="true"
+        (btnIsDisabled)="statusBtn($event)"
+        type="password"
+        *ngIf="!isEdit"></app-input>
+    </div>
+    <div class="form-field-row">
+      <app-input
+        label="Tipo de Usuário"
+        [required]="true"
+        [fieldReference]="getReference('role')"
+        [options]="userOptions"
+        [isSelect]="true"
+        (btnIsDisabled)="statusBtn($event)"
+        placeHolder="Tipo de Usuário"></app-input>
+      <app-input
+        label="Localização Atual"
+        [required]="true"
+        [fieldReference]="getReference('actualLocation')"
+        [options]="locations"
+        [isAsyncSelect]="true"
+        (btnIsDisabled)="statusBtn($event)"
+        [isDisabled]="!isPilotRegister()"></app-input>
+    </div>
+    <app-button
+      class="btn-save"
+      text="Salvar Usuário"
+      type="button"
+      [isDisabled]="!btnIsDisabled"
+      [isLoading]="isLoading"
+      (click)="saveUser()"></app-button>
+  </form>
+</app-menu>

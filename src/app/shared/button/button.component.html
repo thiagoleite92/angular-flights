@@ -1,0 +1,11 @@
+<div>
+  <button
+    mat-raised-button
+    type="{{ type }}"
+    color="accent"
+    disabled="{{ isDisabled }}"
+    [ngClass]="{ customClass: customClass }">
+    {{ text }}
+  </button>
+  <mat-spinner *ngIf="isLoading" [diameter]="20"></mat-spinner>
+</div>
